@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ulloa &amp; Asociados | Estudio Jurídico · hernanulloa.com</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════
+       TOKENS — Light Gallery Premium
+    ═══════════════════════════════════════ */
+    :root {
+      --white:       #FFFFFF;
+      --bg:          #FAFAF8;
+      --surf:        #F0EEE9;
+      --surf-2:      #E6E3DD;
+      --gold:        #C8982A;
+      --gold-l:      #D4A853;
+      --black:       #0B0A09;
+      --text:        #0B0A09;
+      --text-mid:    #5E5A56;
+      --text-light:  #9A9590;
+      --border:      rgba(11,10,9,.09);
+      --bdr-gold:    rgba(200,152,42,.3);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════
+       NAVBAR
+    ═══════════════════════════════════════ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 56px;
+      background: rgba(255,255,255,0);
+      border-bottom: 1px solid transparent;
+      transition: background .45s ease, border-color .45s ease, backdrop-filter .45s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(255,255,255,.93);
+      border-bottom-color: var(--border);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+    }
+
+    /* ── Logo ── */
+    .logo { text-decoration: none; display: flex; flex-direction: column; gap: 4px; }
+    .logo__mark {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--black);
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+    }
+    .logo__amp { color: var(--gold); font-style: italic; padding: 0 4px; }
+    .logo__sub {
+      font-size: 8px;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      font-weight: 300;
+    }
+    .logo__sub2 {
+      font-size: 7.5px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      font-weight: 300;
+    }
+
+    /* ── Nav links ── */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 38px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 10.5px;
+      font-weight: 400;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 3px;
+      transition: color .22s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width .32s cubic-bezier(.4,0,.2,1);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── CTA button ── */
+    .nav-cta {
+      text-decoration: none;
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--black);
+      border: 1px solid var(--black);
+      padding: 11px 26px;
+      transition: background .28s, color .28s, border-color .28s;
+      white-space: nowrap;
+    }
+    .nav-cta:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 54% 46%;
+      align-items: center;
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    /* Ultra-faint dot grid */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(11,10,9,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(11,10,9,.04) 1px, transparent 1px);
+      background-size: 68px 68px;
+      pointer-events: none;
+    }
+
+    /* Vertical separator */
+    .hero__sep {
+      position: absolute;
+      left: 54%; top: 14%; bottom: 14%;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        var(--border) 20%,
+        var(--border) 80%,
+        transparent
+      );
+      z-index: 1;
+    }
+
+    /* ── Hero background image + overlay ── */
+    .hero__bg-img {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/hero-bg.png');
+      background-size: cover;
+      background-position: 72% 18%;
+      background-repeat: no-repeat;
+      z-index: 0;
+      transform: scale(1.06);
+      will-change: transform;
+      transition: transform .08s linear;
+    }
+    .hero__bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        108deg,
+        rgba(255,255,255,.97) 0%,
+        rgba(255,255,255,.92) 32%,
+        rgba(255,255,255,.52) 54%,
+        rgba(255,255,255,.12) 72%,
+        rgba(255,255,255,.04) 100%
+      );
+      z-index: 0;
+      pointer-events: none;
+    }
+    body.dark .hero__bg-overlay {
+      background: linear-gradient(
+        108deg,
+        rgba(0,0,0,.96) 0%,
+        rgba(0,0,0,.88) 32%,
+        rgba(0,0,0,.52) 54%,
+        rgba(0,0,0,.18) 72%,
+        rgba(0,0,0,.06) 100%
+      );
+    }
+
+    /* ── Left content ── */
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding: 116px 52px 80px 80px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Eyebrow */
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .eyebrow__rule { width: 28px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .eyebrow__text {
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* Credentials */
+    .creds {
+      font-size: 10.5px;
+      font-weight: 300;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      margin-bottom: 36px;
+      line-height: 2;
+    }
+    .creds__dot {
+      display: inline-block;
+      width: 3px; height: 3px;
+      background: var(--gold);
+      border-radius: 50%;
+      vertical-align: middle;
+      margin: 0 10px 2px;
+      opacity: .55;
+    }
+
+    /* Main headline */
+    .headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(46px, 4.8vw, 80px);
+      font-weight: 900;
+      line-height: 1.06;
+      color: var(--black);
+      margin-bottom: 32px;
+      letter-spacing: -.01em;
+      text-wrap: pretty;
+    }
+    .headline em {
+      font-style: italic;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* Divider rule under headline */
+    .h-rule {
+      width: 44px; height: 1px;
+      background: var(--gold);
+      margin-bottom: 28px;
+      opacity: .65;
+    }
+
+    /* Body copy */
+    .subtext {
+      font-size: 15.5px;
+      font-weight: 300;
+      line-height: 1.78;
+      color: var(--text-mid);
+      max-width: 455px;
+      margin-bottom: 52px;
+    }
+
+    /* Action row */
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      margin-bottom: 52px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      text-decoration: none;
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: .26em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--black);
+      padding: 17px 38px;
+      transition: background .3s, transform .2s;
+      flex-shrink: 0;
+    }
+    .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+    .btn-primary:hover .arr { transform: translateX(5px); }
+    .arr { display: flex; align-items: center; transition: transform .3s ease; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+      transition: color .22s;
+    }
+    .btn-ghost::before {
+      content: '';
+      display: block;
+      width: 22px; height: 1px;
+      background: currentColor;
+      transition: width .3s;
+    }
+    .btn-ghost:hover { color: var(--black); }
+    .btn-ghost:hover::before { width: 30px; }
+
+    /* Practice-area pills */
+    .pills { display: flex; flex-wrap: wrap; gap: 7px; }
+    .pill {
+      font-size: 8.5px;
+      font-weight: 400;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      border: 1px solid var(--border);
+      padding: 7px 13px;
+      cursor: default;
+      transition: color .2s, border-color .2s;
+    }
+    .pill:hover { color: var(--gold); border-color: var(--bdr-gold); }
+
+    /* ── Right video panel ── */
+    .hero__video {
+      position: relative;
+      z-index: 2;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 64px 80px 36px;
+    }
+
+    /* Wrapper with offset-frame effect */
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* Decorative offset rectangle */
+    .video-wrap::after {
+      content: '';
+      position: absolute;
+      top: 14px; left: 14px;
+      right: -14px; bottom: -14px;
+      border: 1px solid var(--bdr-gold);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* The frame itself — frosted glass over hero bg image */
+    .video-frame {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 4 / 3.2;
+      background-color: rgba(245,243,238,.52);
+      backdrop-filter: blur(18px) saturate(130%);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+      border: 1px solid rgba(255,255,255,.55);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: background-color .35s;
+    }
+    .video-frame:hover { background-color: rgba(235,232,226,.68); }
+    body.dark .video-frame {
+      background-color: rgba(14,12,10,.55);
+      border-color: rgba(255,255,255,.08);
+    }
+    body.dark .video-frame:hover { background-color: rgba(24,21,18,.65); }
+
+    /* Gold corner brackets */
+    .brkt {
+      position: absolute;
+      width: 20px; height: 20px;
+    }
+    .brkt--tl { top: 20px; left: 20px; border-top: 1.5px solid var(--gold); border-left: 1.5px solid var(--gold); }
+    .brkt--tr { top: 20px; right: 20px; border-top: 1.5px solid var(--gold); border-right: 1.5px solid var(--gold); }
+    .brkt--bl { bottom: 42px; left: 20px; border-bottom: 1.5px solid var(--gold); border-left: 1.5px solid var(--gold); }
+    .brkt--br { bottom: 42px; right: 20px; border-bottom: 1.5px solid var(--gold); border-right: 1.5px solid var(--gold); }
+
+    /* Play button */
+    .play-ring {
+      width: 62px; height: 62px;
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .3s, transform .28s;
+      flex-shrink: 0;
+    }
+    .video-frame:hover .play-ring {
+      background: var(--gold);
+      transform: scale(1.07);
+    }
+    .play-icon { fill: var(--gold); transition: fill .3s; margin-left: 4px; }
+    .video-frame:hover .play-icon { fill: var(--white); }
+
+    /* Meta text */
+    .vid-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      text-align: center;
+    }
+    .vid-meta__ttl {
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      color: var(--black);
+    }
+    .vid-meta__sub {
+      font-size: 8px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--text-mid);
+    }
+
+    /* Bottom strip */
+    .vid-strip {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 20px;
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(10px);
+    }
+    .vid-strip span {
+      font-size: 7.5px;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+    .vid-strip span:last-child { color: var(--gold); }
+
+    /* ── Scroll indicator ── */
+    .scroll-cue {
+      position: absolute;
+      bottom: 44px; left: 80px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .scroll-cue__line {
+      width: 1px; height: 36px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: cueAnim 2.8s ease-in-out infinite;
+    }
+    @keyframes cueAnim {
+      0%,100% { opacity: .9; transform: scaleY(1); }
+      50%      { opacity: .18; transform: scaleY(.55); }
+    }
+    .scroll-cue__txt {
+      font-size: 8.5px;
+      letter-spacing: .46em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* ═══════════════════════════════════════
+       TWEAK — DARK MODE
+    ═══════════════════════════════════════ */
+    body.dark {
+      --white:      #000000;
+      --bg:         #0A0908;
+      --surf:       #141210;
+      --surf-2:     #1E1B18;
+      --black:      #EDE8DE;
+      --text:       #EDE8DE;
+      --text-mid:   #7A7570;
+      --text-light: #3E3C3A;
+      --border:     rgba(237,232,222,.07);
+      --bdr-gold:   rgba(200,152,42,.26);
+    }
+    body.dark .navbar.scrolled {
+      background: rgba(0,0,0,.88);
+      border-bottom-color: var(--border);
+    }
+    body.dark .hero {
+      background: var(--white);
+    }
+    body.dark .hero::before {
+      background-image:
+        linear-gradient(rgba(237,232,222,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(237,232,222,.03) 1px, transparent 1px);
+    }
+    body.dark .nav-cta {
+      color: var(--text);
+      border-color: rgba(237,232,222,.2);
+    }
+    body.dark .nav-cta:hover { background: var(--gold); border-color: var(--gold); color: #000; }
+    body.dark .btn-primary  { background: var(--text); color: #000; }
+    body.dark .btn-primary:hover { background: var(--gold); }
+    body.dark .vid-strip    { background: rgba(0,0,0,.6); }
+    body.dark .video-frame  {
+      background-image:
+        repeating-linear-gradient(0deg,   transparent, transparent 28px, rgba(237,232,222,.016) 28px, rgba(237,232,222,.016) 29px),
+        repeating-linear-gradient(90deg,  transparent, transparent 28px, rgba(237,232,222,.010) 28px, rgba(237,232,222,.010) 29px);
+    }
+
+    /* ═══════════════════════════════════════
+       TWEAK — TYPOGRAPHIC VOICE
+    ═══════════════════════════════════════ */
+    /* Editorial — italic-led, ultra-thin weight, generous size */
+    body.type-editorial .headline {
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(50px, 5.4vw, 88px);
+      line-height: 1.02;
+      letter-spacing: -.025em;
+    }
+    body.type-editorial .headline em {
+      font-style: normal;
+      font-weight: 900;
+    }
+    /* Sans — completely different personality: DM Sans, medium weight */
+    body.type-sans .headline {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-weight: 500;
+      font-size: clamp(38px, 4.2vw, 68px);
+      line-height: 1.1;
+      letter-spacing: -.025em;
+    }
+    body.type-sans .headline em {
+      font-style: normal;
+      font-weight: 300;
+      color: var(--gold);
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 1100px) {
+      .navbar { padding: 0 28px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero__sep { display: none; }
+      .hero__content { padding: 100px 28px 40px 28px; }
+      .hero__video { height: auto; padding: 20px 28px 60px; }
+    }
+
+    /* ═══════════════════════════════════════
+       SHARED SECTION HELPERS
+    ═══════════════════════════════════════ */
+    .sec-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .sec-eyebrow__rule { width: 28px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .sec-eyebrow__txt {
+      font-size: 9.5px; font-weight: 500;
+      letter-spacing: .4em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 3.8vw, 58px);
+      font-weight: 700; line-height: 1.08;
+      color: var(--black); margin-bottom: 16px;
+    }
+    .sec-title em { font-style: italic; color: var(--gold); }
+    .sec-sub {
+      font-size: 15px; font-weight: 300;
+      line-height: 1.72; color: var(--text-mid);
+      max-width: 520px;
+    }
+
+    /* ═══════════════════════════════════════
+       ÁREAS DE PRÁCTICA
+    ═══════════════════════════════════════ */
+    .areas { background: var(--bg); }
+
+    .areas__head {
+      padding: 100px 80px 68px;
+      display: flex;
+      flex-direction: column;
+      max-width: 700px;
+    }
+
+    .areas__grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      border-top: 1px solid var(--border);
+    }
+
+    .area-card {
+      position: relative;
+      padding: 44px 32px 48px 34px;
+      border-right: 1px solid var(--border);
+      overflow: hidden;
+      cursor: default;
+      transition: background-color .32s ease;
+    }
+    .area-card:last-child { border-right: none; }
+
+    /* Gold reveal bar — draws up from bottom on hover */
+    .area-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 10%; bottom: 10%;
+      width: 2px;
+      background: var(--gold);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform .42s cubic-bezier(.4,0,.2,1);
+    }
+    .area-card:hover { background-color: var(--white); }
+    .area-card:hover::before { transform: scaleY(1); }
+    .area-card:hover .card-inner { transform: translateX(5px); }
+
+    .card-num {
+      display: block;
+      font-size: 9px; letter-spacing: .36em;
+      text-transform: uppercase;
+      color: var(--text-light); font-weight: 400;
+      margin-bottom: 26px;
+    }
+
+    .card-icon {
+      width: 26px; height: 26px;
+      color: var(--gold);
+      margin-bottom: 22px;
+      flex-shrink: 0;
+    }
+    .card-icon svg { width: 100%; height: 100%; }
+
+    .card-inner { transition: transform .3s ease; }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16.5px; font-weight: 600;
+      line-height: 1.25; color: var(--black);
+      margin-bottom: 12px;
+    }
+    .card-desc {
+      font-size: 13px; font-weight: 300;
+      line-height: 1.7; color: var(--text-mid);
+    }
+
+    .areas__foot {
+      border-top: 1px solid var(--border);
+      padding: 22px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .areas__foot-note {
+      font-size: 9px; letter-spacing: .22em;
+      text-transform: uppercase; color: var(--text-light);
+    }
+
+    /* ═══════════════════════════════════════
+       PERFIL DE AUTORIDAD
+    ═══════════════════════════════════════ */
+    .profile {
+      background: var(--white);
+      padding: 100px 80px;
+      display: grid;
+      grid-template-columns: 40% 60%;
+      align-items: center;
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Photo side ── */
+    .profile__photo {
+      padding-right: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .photo-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+    }
+    .photo-wrap::after {
+      content: '';
+      position: absolute;
+      top: 16px; left: 16px;
+      right: -16px; bottom: -16px;
+      border: 1px solid var(--bdr-gold);
+      z-index: 0; pointer-events: none;
+    }
+    .photo-frame {
+      position: relative; z-index: 1;
+      width: 100%; aspect-ratio: 3/4;
+      background-color: var(--surf);
+      background-image:
+        repeating-linear-gradient(0deg,   transparent, transparent 28px, rgba(11,10,9,.022) 28px, rgba(11,10,9,.022) 29px),
+        repeating-linear-gradient(90deg,  transparent, transparent 28px, rgba(11,10,9,.014) 28px, rgba(11,10,9,.014) 29px);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px; overflow: hidden;
+    }
+    .p-brkt { position: absolute; width: 20px; height: 20px; }
+    .p-brkt--tl { top: 18px; left: 18px; border-top: 1.5px solid var(--gold); border-left: 1.5px solid var(--gold); }
+    .p-brkt--tr { top: 18px; right: 18px; border-top: 1.5px solid var(--gold); border-right: 1.5px solid var(--gold); }
+    .p-brkt--bl { bottom: 50px; left: 18px; border-bottom: 1.5px solid var(--gold); border-left: 1.5px solid var(--gold); }
+    .p-brkt--br { bottom: 50px; right: 18px; border-bottom: 1.5px solid var(--gold); border-right: 1.5px solid var(--gold); }
+
+    .photo-ph {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 10px;
+    }
+    .photo-ph__ring {
+      width: 44px; height: 44px;
+      border: 1px solid var(--bdr-gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold);
+    }
+    .photo-ph__lbl {
+      font-size: 8.5px; letter-spacing: .32em;
+      text-transform: uppercase; color: var(--text-light);
+    }
+    .photo-ph__sub {
+      font-size: 7.5px; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--text-light);
+      opacity: .55; text-align: center; padding: 0 24px;
+    }
+
+    .photo-strip {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 11px 18px;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    body.dark .photo-strip { background: rgba(0,0,0,.6); }
+    .photo-strip__name {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px; font-weight: 600;
+      color: var(--black); letter-spacing: .04em;
+    }
+    .photo-strip__role {
+      font-size: 7.5px; letter-spacing: .28em;
+      text-transform: uppercase; color: var(--text-mid);
+    }
+
+    /* ── Text side ── */
+    .profile__text {
+      padding-left: 64px;
+      border-left: 1px solid var(--border);
+    }
+
+    .profile__name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 3.2vw, 52px);
+      font-weight: 700; line-height: 1.1;
+      color: var(--black); margin-bottom: 8px;
+    }
+    .profile__role {
+      font-size: 11px; font-weight: 400;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text-mid); margin-bottom: 28px;
+    }
+    .profile__rule {
+      width: 44px; height: 1px;
+      background: var(--gold); margin-bottom: 28px;
+    }
+    .profile__bio {
+      font-size: 15.5px; font-weight: 300;
+      line-height: 1.82; color: var(--text-mid);
+      margin-bottom: 48px; max-width: 540px;
+    }
+    .profile__bio strong { color: var(--black); font-weight: 500; }
+
+    /* Three credential blocks */
+    .profile__creds {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+    .pcred { border-top: 1.5px solid var(--gold); padding-top: 16px; }
+    .pcred__ttl {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px; font-weight: 700;
+      line-height: 1.3; color: var(--black);
+      margin-bottom: 7px;
+    }
+    .pcred__desc {
+      font-size: 12px; font-weight: 300;
+      line-height: 1.65; color: var(--text-mid);
+    }
+
+    /* Responsive for new sections */
+    @media (max-width: 1100px) {
+      .areas__head { padding: 72px 28px 48px; }
+      .areas__grid { grid-template-columns: repeat(3, 1fr); }
+      .area-card:nth-child(3) { border-right: none; }
+      .area-card:nth-child(4),
+      .area-card:nth-child(5) { border-top: 1px solid var(--border); }
+      .areas__foot { padding: 20px 28px; }
+      .profile { grid-template-columns: 1fr; padding: 72px 28px; gap: 56px; }
+      .profile__photo { padding-right: 0; }
+      .profile__text { padding-left: 0; border-left: none; border-top: 1px solid var(--border); padding-top: 48px; }
+      .profile__creds { grid-template-columns: 1fr 1fr; gap: 20px; }
+    }
+    @media (max-width: 640px) {
+      .areas__grid { grid-template-columns: 1fr 1fr; }
+      .area-card:nth-child(2n) { border-right: none; }
+      .area-card { border-top: 1px solid var(--border); }
+      .profile__creds { grid-template-columns: 1fr; }
+    /* ═══════════════════════════════════════
+       YOUTUBE / ENTREVISTAS
+    ═══════════════════════════════════════ */
+    .youtube {
+      background: var(--surf);
+      padding: 100px 80px;
+      border-top: 1px solid var(--border);
+    }
+    .yt-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 56px;
+    }
+    .yt-card {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .yt-card__thumb-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: var(--surf-2);
+    }
+    .yt-card__thumb {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .45s ease;
+    }
+    .yt-card:hover .yt-card__thumb { transform: scale(1.04); }
+    .yt-card__overlay {
+      position: absolute; inset: 0;
+      background: rgba(11,10,9,.2);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .3s;
+    }
+    .yt-card:hover .yt-card__overlay { background: rgba(11,10,9,.45); }
+    .yt-card__play {
+      width: 52px; height: 52px;
+      border: 1.5px solid rgba(255,255,255,.85);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .3s, transform .25s;
+    }
+    .yt-card:hover .yt-card__play {
+      background: var(--gold);
+      border-color: var(--gold);
+      transform: scale(1.1);
+    }
+    .yt-card__play svg { margin-left: 3px; }
+    .yt-card__info {
+      padding: 14px 0 6px;
+      border-top: 1px solid var(--border);
+    }
+    .yt-card__src {
+      font-size: 8.5px; letter-spacing: .28em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .yt-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px; font-weight: 600;
+      line-height: 1.3; color: var(--black);
+      margin-bottom: 4px;
+    }
+    .yt-card__date {
+      font-size: 11px; color: var(--text-light);
+      font-weight: 300;
+    }
+    .yt-card__iframe-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+    }
+    .yt-card__iframe-wrap iframe {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; border: 0;
+    }
+
+    /* ═══════════════════════════════════════
+       PRENSA / NOTICIAS
+    ═══════════════════════════════════════ */
+    .press {
+      background: var(--white);
+      padding: 100px 80px;
+      border-top: 1px solid var(--border);
+    }
+    .press-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin-top: 56px;
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+    }
+    .press-card {
+      padding: 30px 28px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      gap: 10px;
+      position: relative;
+      transition: background-color .25s;
+      text-decoration: none;
+    }
+    .press-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px; background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .press-card:hover { background: var(--bg); }
+    .press-card:hover::before { transform: scaleX(1); }
+    .press-card__src {
+      font-size: 8.5px; font-weight: 500;
+      letter-spacing: .28em; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .press-card__date {
+      font-size: 10px; letter-spacing: .12em;
+      color: var(--text-light); font-weight: 300;
+    }
+    .press-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; font-weight: 600;
+      line-height: 1.35; color: var(--black);
+    }
+    .press-card__desc {
+      font-size: 12.5px; font-weight: 300;
+      line-height: 1.65; color: var(--text-mid);
+      flex: 1;
+    }
+    .press-card__cta {
+      font-size: 9px; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: 6px;
+      margin-top: 4px;
+    }
+    .press-card__cta::after {
+      content: '→';
+      transition: transform .2s;
+    }
+    .press-card:hover .press-card__cta::after { transform: translateX(4px); }
+
+    /* Responsive for new sections */
+    @media (max-width: 1100px) {
+      .youtube { padding: 72px 28px; }
+      .yt-grid { grid-template-columns: repeat(2, 1fr); }
+      .press { padding: 72px 28px; }
+      .press-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .yt-grid { grid-template-columns: 1fr; }
+      .press-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════
+       PRINT STYLES
+    ═══════════════════════════════════════ */
+    @media print {
+      @page { size: A4 portrait; margin: 1.2cm 1.5cm; }
+
+      /* Force colors */
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+      /* Remove interactive / fixed elements */
+      .navbar,
+      #tweaks-root,
+      .scroll-ind,
+      .hero__parallax,
+      .hero__bg-img { display: none !important; }
+
+      /* Remove animations & transitions */
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      body { overflow: visible !important; font-size: 11pt; }
+      html { scroll-behavior: auto; }
+
+      /* ── Hero: static layout, show logo at top ── */
+      .hero {
+        min-height: auto !important;
+        padding-top: 32pt !important;
+        grid-template-columns: 55% 45% !important;
+        break-after: page;
+        position: relative !important;
+      }
+      .hero__bg-overlay { display: none !important; }
+      .hero__content { padding: 24pt 24pt 24pt 0 !important; }
+      .hero__video  { padding: 0 0 24pt 24pt !important; }
+      .video-frame  { backdrop-filter: none !important; background: var(--surf) !important; }
+
+      .headline { font-size: 32pt !important; }
+      .subtext  { font-size: 11pt !important; }
+
+      /* ── Areas: 2 columns ── */
+      .areas { break-before: page; }
+      .areas__grid { grid-template-columns: repeat(3, 1fr) !important; }
+      .area-card { break-inside: avoid; }
+      .area-card::before { display: none !important; }
+
+      /* ── Profile ── */
+      .profile {
+        break-before: page;
+        grid-template-columns: 38% 62% !important;
+        padding: 40pt 0 !important;
+      }
+
+      /* ── YouTube — hide embeds, show titles only ── */
+      .youtube { break-before: page; }
+      .yt-grid { grid-template-columns: repeat(3, 1fr) !important; }
+      .yt-card__thumb-wrap { aspect-ratio: 16/9 !important; }
+      .yt-card__overlay { display: none !important; }
+
+      /* ── Press: 2 columns ── */
+      .press { break-before: page; }
+      .press-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      .press-card { break-inside: avoid; }
+      .press-card::before { display: none !important; }
+
+      /* ── Buttons: remove hover-only borders ── */
+      .btn-primary { color: var(--black) !important; background: var(--gold) !important; }
+      .pill { border-color: var(--bdr-gold) !important; }
+
+      /* ── Profile photo frame ── */
+      .photo-wrap::after { display: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+
+    <a href="#inicio" class="logo">
+      <span class="logo__mark">
+        Ulloa<span class="logo__amp">&amp;</span>Asociados
+      </span>
+      <span class="logo__sub">Estudio Jurídico &nbsp;·&nbsp; 🇪🇨 Ecuador</span>
+      <span class="logo__sub2">Fundado en 1977</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#areas">Áreas de Práctica</a></li>
+      <li><a href="#marca">Marca Personal</a></li>
+      <li><a href="#estudio">El Estudio</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+
+    <a href="#contacto" class="nav-cta">Iniciar Defensa Legal</a>
+
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════ -->
+  <section class="hero" id="inicio">
+
+    <div class="hero__bg-img" id="hero-parallax"></div>
+    <div class="hero__bg-overlay"></div>
+    <div class="hero__sep"></div>
+
+    <!-- ── Left — Content ── -->
+    <div class="hero__content">
+
+      <div class="eyebrow">
+        <div class="eyebrow__rule"></div>
+        <span class="eyebrow__text">hernanulloa.com</span>
+      </div>
+
+      <p class="creds">
+        Ab. Hernán Ulloa Ordóñez
+        <span class="creds__dot"></span>Consultor Jurídico
+        <span class="creds__dot"></span>Expresidente del CPCCS
+        <span class="creds__dot"></span>Socio Fundador — Presidente
+      </p>
+
+      <h1 class="headline">
+        Estrategia Legal<br>
+        <em>Implacable.</em><br>
+        Soluciones de<br>
+        Alta Gama.
+      </h1>
+
+      <div class="h-rule"></div>
+
+      <p class="subtext">
+        Defendemos sus intereses con precisión, discreción y excelencia jurídica,
+        fusionando el criterio experto con innovación tecnológica.
+      </p>
+
+      <div class="actions">
+        <a href="#contacto" class="btn-primary">
+          <span>Iniciar Defensa Legal</span>
+          <span class="arr">
+            <svg width="15" height="10" viewBox="0 0 15 10" fill="none">
+              <path d="M1 5H14M9.5 1L14 5L9.5 9" stroke="currentColor" stroke-width="1.3"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </a>
+        <a href="#estudio" class="btn-ghost">Conocer el Estudio</a>
+      </div>
+
+      <div class="pills">
+        <span class="pill">Penal Económico</span>
+        <span class="pill">Compliance Penal</span>
+        <span class="pill">Constitucional</span>
+        <span class="pill">Corporativo</span>
+        <span class="pill">Competencia</span>
+        <span class="pill">Litigación Compleja</span>
+        <span class="pill">Asesoría Estratégica</span>
+      </div>
+
+    </div>
+
+    <!-- ── Right — Video container ── -->
+    <div class="hero__video">
+      <div class="video-wrap">
+        <div class="video-frame"
+             role="button"
+             aria-label="Reproducir video de presentación corporativa del Estudio Jurídico Ulloa &amp; Asociados">
+
+          <div class="brkt brkt--tl"></div>
+          <div class="brkt brkt--tr"></div>
+          <div class="brkt brkt--bl"></div>
+          <div class="brkt brkt--br"></div>
+
+          <div class="play-ring">
+            <svg class="play-icon" width="17" height="19" viewBox="0 0 17 19">
+              <path d="M1.5 1.5L15.5 9.5L1.5 17.5V1.5Z"/>
+            </svg>
+          </div>
+
+          <div class="vid-meta">
+            <span class="vid-meta__ttl">Video Corporativo</span>
+            <span class="vid-meta__sub">Presentación del Estudio &amp; Equipo</span>
+          </div>
+
+          <div class="vid-strip">
+            <span>Ab. Hernán Ulloa Ordóñez</span>
+            <span>hernanulloa.com</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="scroll-cue">
+      <div class="scroll-cue__line"></div>
+      <span class="scroll-cue__txt">Explorar</span>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       ÁREAS DE PRÁCTICA
+  ═══════════════════════════════════════════════════ -->
+  <section class="areas" id="areas">
+
+    <div class="areas__head">
+      <div class="sec-eyebrow">
+        <div class="sec-eyebrow__rule"></div>
+        <span class="sec-eyebrow__txt">Especialidades</span>
+      </div>
+      <h2 class="sec-title">Áreas de <em>Práctica</em></h2>
+      <p class="sec-sub">Dominio técnico en las disciplinas jurídicas más exigentes del escenario nacional e internacional. Cada mandato es tratado con la precisión de un cirujano y la visión de un estratega.</p>
+    </div>
+
+    <div class="areas__grid">
+
+      <!-- 01 Derecho Constitucional -->
+      <div class="area-card">
+        <span class="card-num">01</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 20h18M6 20V9m4 11V9m8 11V9m-4 11V9M3 9h18M12 9V5M10 5h4"/>
+          </svg>
+        </div>
+        <div class="card-inner">
+          <h3 class="card-title">Derecho Constitucional</h3>
+          <p class="card-desc">Defensa de derechos fundamentales, acciones constitucionales y representación ante la Corte Constitucional del Ecuador.</p>
+        </div>
+      </div>
+
+      <!-- 02 Derecho Corporativo -->
+      <div class="area-card">
+        <span class="card-num">02</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 21h16V5H4v16zm4-10h2v2H8v-2zm4 0h2v2h-2v-2zm-4 4h2v2H8v-2zm4 0h2v2h-2v-2zm-4 4h2v2H8v-2zm4 0h2v2h-2v-2zM10 5V3h4v2"/>
+          </svg>
+        </div>
+        <div class="card-inner">
+          <h3 class="card-title">Derecho Corporativo</h3>
+          <p class="card-desc">Estructuración de empresas, fusiones y adquisiciones, contratos estratégicos y gobierno corporativo de alto nivel.</p>
+        </div>
+      </div>
+
+      <!-- 03 Compliance Penal -->
+      <div class="area-card">
+        <span class="card-num">03</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3L3 7v5c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7L12 3z"/>
+            <path d="M8.5 12l2.5 2.5L16 9"/>
+          </svg>
+        </div>
+        <div class="card-inner">
+          <h3 class="card-title">Compliance Penal</h3>
+          <p class="card-desc">Diseño e implementación de programas de cumplimiento normativo, prevención de riesgos penales empresariales y due diligence.</p>
+        </div>
+      </div>
+
+      <!-- 04 Litigación Compleja -->
+      <div class="area-card">
+        <span class="card-num">04</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 4v16M5 7h14"/>
+            <path d="M7.5 17a3 3 0 01-6 0l3-8 3 8zm13 0a3 3 0 01-6 0l3-8 3 8z"/>
+          </svg>
+        </div>
+        <div class="card-inner">
+          <h3 class="card-title">Litigación Compleja</h3>
+          <p class="card-desc">Representación de alto perfil en procesos penales económicos, arbitrajes internacionales y litigación civil de gran escala.</p>
+        </div>
+      </div>
+
+      <!-- 05 Asesoría Estratégica -->
+      <div class="area-card">
+        <span class="card-num">05</span>
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"/>
+          </svg>
+        </div>
+        <div class="card-inner">
+          <h3 class="card-title">Asesoría Estratégica en Litigios</h3>
+          <p class="card-desc">Consultoría de alto nivel para la toma de decisiones jurídico-estratégicas en entornos de máxima complejidad y exposición.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="areas__foot">
+      <span class="areas__foot-note">Ulloa &amp; Asociados · hernanulloa.com</span>
+      <span class="areas__foot-note">Ecuador &nbsp;·&nbsp; Derecho de Alto Nivel</span>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PERFIL DE AUTORIDAD
+  ═══════════════════════════════════════════════════ -->
+  <section class="profile" id="marca">
+
+    <!-- Photo side -->
+    <div class="profile__photo">
+      <div class="photo-wrap">
+        <div class="photo-frame">
+
+          <div class="p-brkt p-brkt--tl"></div>
+          <div class="p-brkt p-brkt--tr"></div>
+          <div class="p-brkt p-brkt--bl"></div>
+          <div class="p-brkt p-brkt--br"></div>
+
+          <div class="photo-ph">
+            <div class="photo-ph__ring">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/>
+              </svg>
+            </div>
+            <span class="photo-ph__lbl">Fotografía Profesional</span>
+            <span class="photo-ph__sub">Alta calidad · Retrato corporativo</span>
+          </div>
+
+          <div class="photo-strip">
+            <span class="photo-strip__name">Ab. Hernán Ulloa Ordóñez</span>
+            <span class="photo-strip__role">Socio Fundador &amp; Presidente · Estudio Jurídico</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Text side -->
+    <div class="profile__text">
+
+      <div class="sec-eyebrow">
+        <div class="sec-eyebrow__rule"></div>
+        <span class="sec-eyebrow__txt">Sobre el Abogado</span>
+      </div>
+
+      <h2 class="profile__name">Ab. Hernán<br><em style="font-style:italic;color:var(--gold);">Ulloa Ordóñez</em></h2>
+      <p class="profile__role">Consultor Jurídico &nbsp;·&nbsp; Expresidente del CPCCS &nbsp;·&nbsp; Socio Fundador — Presidente</p>
+      <div class="profile__rule"></div>
+
+      <p class="profile__bio">
+        El Ab. Hernán Ulloa Ordóñez es una de las figuras más influyentes del Derecho ecuatoriano contemporáneo.
+        Su trayectoria singular como <strong>Expresidente del Consejo de Participación Ciudadana y Control Social</strong>
+        le confiere una perspectiva estratégica sin parangón: ha operado en el centro mismo del poder institucional
+        del Estado, comprendiendo a profundidad sus mecanismos, sus riesgos y sus posibilidades.
+        Al frente de Ulloa &amp; Asociados, lidera un equipo especializado que combina <strong>rigor jurídico,
+        visión sistémica e innovación tecnológica</strong> para defender intereses de alto perfil
+        con precisión absoluta y discreción inquebrantable.
+      </p>
+
+      <div class="profile__creds">
+        <div class="pcred">
+          <p class="pcred__ttl">Expresidente<br>del CPCCS</p>
+          <p class="pcred__desc">Liderazgo al más alto nivel del Estado ecuatoriano. Visión institucional única e irrepetible.</p>
+        </div>
+        <div class="pcred">
+          <p class="pcred__ttl">Consultor<br>Jurídico</p>
+          <p class="pcred__desc">Asesoramiento estratégico para empresas, instituciones y figuras de alto perfil con máxima exposición.</p>
+        </div>
+        <div class="pcred">
+          <p class="pcred__ttl">Socio Fundador<br>&amp; Presidente</p>
+          <p class="pcred__desc">Arquitecto y líder del Estudio Jurídico más orientado a la excelencia técnica y estratégica del Ecuador.</p>
+        </div>
+      </div>
+
+      <a href="#contacto" class="btn-primary">
+        <span>Solicitar Consulta Privada</span>
+        <span class="arr">
+          <svg width="15" height="10" viewBox="0 0 15 10" fill="none">
+            <path d="M1 5H14M9.5 1L14 5L9.5 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       ENTREVISTAS EN YOUTUBE
+  ═══════════════════════════════════════════════════ -->
+  <section class="youtube" id="entrevistas">
+
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:24px; max-width:100%">
+      <div style="max-width:640px">
+        <div class="sec-eyebrow">
+          <div class="sec-eyebrow__rule"></div>
+          <span class="sec-eyebrow__txt">Canal Oficial de YouTube</span>
+        </div>
+        <h2 class="sec-title">Entrevistas &amp; <em>Análisis</em></h2>
+        <p class="sec-sub">Intervenciones del Ab. Hernán Ulloa Ordóñez en medios nacionales e internacionales sobre los casos más relevantes del Derecho ecuatoriano contemporáneo.</p>
+      </div>
+      <a href="https://www.youtube.com/@HernanUlloaEc" target="_blank" rel="noopener"
+         style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+                font-size:9.5px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;
+                color:var(--black);border:1px solid var(--black);padding:11px 24px;
+                transition:background .28s,color .28s,border-color .28s;white-space:nowrap;flex-shrink:0">
+        Ver Canal Completo
+        <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+          <path d="M1 4.5H11M7.5 1L11 4.5L7.5 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="yt-grid" id="yt-grid">
+
+      <div class="yt-card" onclick="playYT(this,'aJhfIt7lD-I')">
+        <div class="yt-card__thumb-wrap">
+          <img class="yt-card__thumb" src="https://img.youtube.com/vi/aJhfIt7lD-I/maxresdefault.jpg" alt="Caso señora María Jaramillo" loading="lazy">
+          <div class="yt-card__overlay">
+            <div class="yt-card__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M1.5 1.5L12.5 8L1.5 14.5V1.5Z" fill="white"/></svg></div>
+          </div>
+        </div>
+        <div class="yt-card__info">
+          <p class="yt-card__src">Caso Emblemático</p>
+          <h3 class="yt-card__title">Caso Sra. María Jaramillo — Reforma al Código de la Niñez</h3>
+          <p class="yt-card__date">Proyecto de ley · Asamblea Nacional</p>
+        </div>
+      </div>
+
+      <div class="yt-card" onclick="playYT(this,'9H1WMmSboQU')">
+        <div class="yt-card__thumb-wrap">
+          <img class="yt-card__thumb" src="https://img.youtube.com/vi/9H1WMmSboQU/maxresdefault.jpg" alt="Municipio de Guayaquil" loading="lazy">
+          <div class="yt-card__overlay">
+            <div class="yt-card__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M1.5 1.5L12.5 8L1.5 14.5V1.5Z" fill="white"/></svg></div>
+          </div>
+        </div>
+        <div class="yt-card__info">
+          <p class="yt-card__src">Derechos Humanos</p>
+          <h3 class="yt-card__title">Acción Cautelar contra el Municipio de Guayaquil — Defensa de No Videntes</h3>
+          <p class="yt-card__date">Acción ganada · Zona Regenerada</p>
+        </div>
+      </div>
+
+      <div class="yt-card" onclick="playYT(this,'ZyoBpkUkfiU')">
+        <div class="yt-card__thumb-wrap">
+          <img class="yt-card__thumb" src="https://img.youtube.com/vi/ZyoBpkUkfiU/maxresdefault.jpg" alt="CPCCS Teleamazonas" loading="lazy">
+          <div class="yt-card__overlay">
+            <div class="yt-card__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M1.5 1.5L12.5 8L1.5 14.5V1.5Z" fill="white"/></svg></div>
+          </div>
+        </div>
+        <div class="yt-card__info">
+          <p class="yt-card__src">Teleamazonas · 2022</p>
+          <h3 class="yt-card__title">Polémica en el CPCCS — Entrevista 24 Horas</h3>
+          <p class="yt-card__date">Febrero 2022 · Presidente del CPCCS</p>
+        </div>
+      </div>
+
+      <div class="yt-card" onclick="playYT(this,'kUCQ5-vSDzY')">
+        <div class="yt-card__thumb-wrap">
+          <img class="yt-card__thumb" src="https://img.youtube.com/vi/kUCQ5-vSDzY/maxresdefault.jpg" alt="Carlos Vera CPCCS" loading="lazy">
+          <div class="yt-card__overlay">
+            <div class="yt-card__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M1.5 1.5L12.5 8L1.5 14.5V1.5Z" fill="white"/></svg></div>
+          </div>
+        </div>
+        <div class="yt-card__info">
+          <p class="yt-card__src">Vera a Su Manera · 2022</p>
+          <h3 class="yt-card__title">El CPCCS al Paredón — Crisis Institucional con Carlos Vera</h3>
+          <p class="yt-card__date">Julio 2022 · Análisis político</p>
+        </div>
+      </div>
+
+      <div class="yt-card" onclick="playYT(this,'OjASi1NqX28')">
+        <div class="yt-card__thumb-wrap">
+          <img class="yt-card__thumb" src="https://img.youtube.com/vi/OjASi1NqX28/maxresdefault.jpg" alt="Superintendente de Bancos" loading="lazy">
+          <div class="yt-card__overlay">
+            <div class="yt-card__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M1.5 1.5L12.5 8L1.5 14.5V1.5Z" fill="white"/></svg></div>
+          </div>
+        </div>
+        <div class="yt-card__info">
+          <p class="yt-card__src">Teleamazonas · 2022</p>
+          <h3 class="yt-card__title">Sobre la Designación del Superintendente de Bancos</h3>
+          <p class="yt-card__date">Agosto 2022 · Presidente CPCCS</p>
+        </div>
+      </div>
+
+      <div class="yt-card" onclick="playYT(this,'djO_WBeYgrE')">
+        <div class="yt-card__thumb-wrap">
+          <img class="yt-card__thumb" src="https://img.youtube.com/vi/djO_WBeYgrE/maxresdefault.jpg" alt="Expresidente CPCCS 2024" loading="lazy">
+          <div class="yt-card__overlay">
+            <div class="yt-card__play"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M1.5 1.5L12.5 8L1.5 14.5V1.5Z" fill="white"/></svg></div>
+          </div>
+        </div>
+        <div class="yt-card__info">
+          <p class="yt-card__src">Entrevista · 2024</p>
+          <h3 class="yt-card__title">Hernán Ulloa — Expresidente del CPCCS</h3>
+          <p class="yt-card__date">Junio 2024 · Análisis jurídico-político</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PRENSA / NOTICIAS EMBLEMÁTICAS
+  ═══════════════════════════════════════════════════ -->
+  <section class="press" id="prensa">
+
+    <div style="max-width:640px">
+      <div class="sec-eyebrow">
+        <div class="sec-eyebrow__rule"></div>
+        <span class="sec-eyebrow__txt">Cobertura Mediática</span>
+      </div>
+      <h2 class="sec-title">Casos en la <em>Prensa</em></h2>
+      <p class="sec-sub">Noticias de medios nacionales e internacionales sobre los casos más emblemáticos del Ab. Hernán Ulloa Ordóñez desde 2010 a la actualidad.</p>
+    </div>
+
+    <div class="press-grid">
+
+      <a class="press-card" href="https://www.bigbangnews.com/actualidad/movil-sexual-y-uso-de-burundanga-la-clave-que-sigue-la-familia-de-las-mochileras-2016-3-15-10-41-0" target="_blank" rel="noopener">
+        <span class="press-card__src">BigBang News · Argentina</span>
+        <span class="press-card__date">Marzo 2016</span>
+        <p class="press-card__title">Caso Mochileras en Montañita — Familias Menegazzo y Coni</p>
+        <p class="press-card__desc">Hernán Ulloa Ordóñez lideró la defensa de las familias de las jóvenes argentinas asesinadas en Ecuador. El caso resultó en condena de 40 años de prisión.</p>
+        <span class="press-card__cta">Leer artículo</span>
+      </a>
+
+      <a class="press-card" href="http://www.elcomercio.com/actualidad/familias-argentinas-menegazzo-coni-pidieron.html" target="_blank" rel="noopener">
+        <span class="press-card__src">El Comercio · Ecuador</span>
+        <span class="press-card__date">2016</span>
+        <p class="press-card__title">Familias Menegazzo y Coni Piden Justicia en Ecuador</p>
+        <p class="press-card__desc">El Ab. Ulloa representó a las familias de las víctimas argentinas ante la justicia ecuatoriana, logrando una pena de 40 años para los responsables.</p>
+        <span class="press-card__cta">Leer artículo</span>
+      </a>
+
+      <a class="press-card" href="https://medium.com/focus-news-ecuador/hern%C3%A1n-ulloa-ord%C3%B3%C3%B1ez-la-interferencia-en-la-justicia-fue-una-pol%C3%ADtica-de-estado-ddec7425a835" target="_blank" rel="noopener">
+        <span class="press-card__src">Focus News Ecuador · Medium</span>
+        <span class="press-card__date">Octubre 2017</span>
+        <p class="press-card__title">«La Interferencia en la Justicia fue una Política de Estado»</p>
+        <p class="press-card__desc">Ulloa Ordóñez, abogado de decenas de exjueces destituidos por el Consejo de la Judicatura, presentó audios, documentos y testimonios de injerencia política.</p>
+        <span class="press-card__cta">Leer artículo</span>
+      </a>
+
+      <a class="press-card" href="https://www.expreso.ec/actualidad/hernan-ulloa-pide-vinculacion-procurador-diego-garcia-caso-odebrecht-49173.html" target="_blank" rel="noopener">
+        <span class="press-card__src">Expreso · Ecuador</span>
+        <span class="press-card__date">Octubre 2017</span>
+        <p class="press-card__title">Caso Odebrecht — Ulloa Pide Vinculación del Procurador del Estado</p>
+        <p class="press-card__desc">Como abogado de Carlos Polit, Ulloa Ordóñez presentó ante la Fiscalía el pedido formal de vinculación del Procurador General en el caso de corrupción.</p>
+        <span class="press-card__cta">Leer artículo</span>
+      </a>
+
+      <a class="press-card" href="https://www.eluniverso.com/noticias/2019/03/12/nota/7228355/hernan-ulloa-ordonez/" target="_blank" rel="noopener">
+        <span class="press-card__src">El Universo · Ecuador</span>
+        <span class="press-card__date">Marzo 2019</span>
+        <p class="press-card__title">Hernán Ulloa Ordóñez — Perfil del Candidato al CPCCS</p>
+        <p class="press-card__desc">Especialista en Ciencias Penales y Criminológicas, exfiscal y defensor de causas sociales, Ulloa se postula al Consejo de Participación Ciudadana.</p>
+        <span class="press-card__cta">Leer artículo</span>
+      </a>
+
+      <a class="press-card" href="https://lahora.com.ec/noticia/1102228709/candidato-al-cpccs-presento-recurso-a-la-corte-constitucional" target="_blank" rel="noopener">
+        <span class="press-card__src">La Hora · Ecuador</span>
+        <span class="press-card__date">2019</span>
+        <p class="press-card__title">Candidato al CPCCS Presenta Recurso Amicus Curiae a la Corte Constitucional</p>
+        <p class="press-card__desc">Ulloa Ordóñez presentó un recurso ante la CC en defensa del proceso de elecciones del CPCCS, que estaba siendo amenazado por medidas cautelares.</p>
+        <span class="press-card__cta">Leer artículo</span>
+      </a>
+
+      <a class="press-card" href="https://eltiempo-ecuador.com/politica/quien-es-hernan-ulloa-posesionado-como-presidente-del-consejo-de-participacion-ciudadana-politica-noticias/" target="_blank" rel="noopener">
+        <span class="press-card__src">El Tiempo Ecuador</span>
+        <span class="press-card__date">Febrero 2022</span>
+        <p class="press-card__title">¿Quién es Hernán Ulloa, Posesionado Presidente del CPCCS?</p>
+        <p class="press-card__desc">El abogado guayaquileño asume la presidencia del Consejo de Participación Ciudadana con un historial de defensa de derechos y causas sociales sin cobrar.</p>
+        <span class="press-card__cta">Leer artículo</span>
+      </a>
+
+      <a class="press-card" href="https://www.eluniverso.com/noticias/politica/hernan-ulloa-ibeth-estupinan-y-francisco-bravo-concretan-accion-de-proteccion-que-deje-sin-efecto-su-censura-y-destitucion-nota/" target="_blank" rel="noopener">
+        <span class="press-card__src">El Universo · Ecuador</span>
+        <span class="press-card__date">Noviembre 2022</span>
+        <p class="press-card__title">Consejeros Destituidos Presentan Acción de Protección Constitucional</p>
+        <p class="press-card__desc">Ulloa, Estupiñán y Bravo acudieron al Complejo Judicial Norte de Quito para impugnar el juicio político que los censuró y destituyó del CPCCS.</p>
+        <span class="press-card__cta">Leer artículo</span>
+      </a>
+
+      <a class="press-card" href="https://www.eluniverso.com/temas/hernan-ulloa/" target="_blank" rel="noopener">
+        <span class="press-card__src">El Universo · Temas</span>
+        <span class="press-card__date">2019 — 2024</span>
+        <p class="press-card__title">Archivo Completo: Hernán Ulloa Ordóñez en El Universo</p>
+        <p class="press-card__desc">Archivo completo de todas las notas periodísticas del diario El Universo sobre el Ab. Hernán Ulloa Ordóñez, desde su actividad jurídica hasta su gestión en el CPCCS.</p>
+        <span class="press-card__cta">Ver archivo</span>
+      </a>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       JS — Navbar scroll
+  ═══════════════════════════════════════════════════ -->
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 28);
+    }, { passive: true });
+
+    /* YouTube click-to-play */
+    function playYT(card, id) {
+      const wrap = card.querySelector('.yt-card__thumb-wrap');
+      wrap.innerHTML =
+        '<div class="yt-card__iframe-wrap">' +
+        '<iframe src="https://www.youtube.com/embed/' + id +
+        '?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>' +
+        '</div>';
+    }
+
+    /* ══════════════════════════════════════
+       LIVE YOUTUBE CHANNEL — @HernanUlloaEc
+    ══════════════════════════════════════ */
+    (async function loadChannel() {
+      const CHANNEL_ID = 'UC8HK_NbwuLGdykRkE2yLnsA';
+      const rss   = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
+      const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(rss);
+
+      try {
+        const res  = await fetch(proxy, { cache: 'default' });
+        const data = await res.json();
+        const xml  = new DOMParser().parseFromString(data.contents, 'text/xml');
+        const entries = Array.from(xml.querySelectorAll('entry'));
+        if (!entries.length) return;
+
+        const grid = document.getElementById('yt-grid');
+        grid.innerHTML = '';
+
+        entries.slice(0, 9).forEach(entry => {
+          /* Video ID — from <yt:videoId> or <id>yt:video:XXXX</id> */
+          const vidEl   = Array.from(entry.children).find(el => el.localName === 'videoId');
+          const entryId = entry.querySelector('id')?.textContent || '';
+          const id      = vidEl?.textContent || entryId.split(':').pop();
+          const title   = entry.querySelector('title')?.textContent || '';
+          const pub     = entry.querySelector('published')?.textContent || '';
+          if (!id || id.length !== 11) return;
+
+          const date = pub
+            ? new Date(pub).toLocaleDateString('es-EC', { year:'numeric', month:'long' })
+            : '';
+
+          const card = document.createElement('div');
+          card.className = 'yt-card';
+          card.setAttribute('onclick', "playYT(this,'" + id + "')");
+          card.innerHTML =
+            '<div class="yt-card__thumb-wrap">' +
+              '<img class="yt-card__thumb" loading="lazy"' +
+              ' src="https://img.youtube.com/vi/' + id + '/maxresdefault.jpg"' +
+              ' onerror="this.src=\'https://img.youtube.com/vi/' + id + '/hqdefault.jpg\'"' +
+              ' alt="' + title.replace(/"/g, '&quot;') + '">' +
+              '<div class="yt-card__overlay">' +
+                '<div class="yt-card__play">' +
+                  '<svg width="14" height="16" viewBox="0 0 14 16" fill="none">' +
+                    '<path d="M1.5 1.5L12.5 8L1.5 14.5V1.5Z" fill="white"/>' +
+                  '</svg>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="yt-card__info">' +
+              '<p class="yt-card__src">@HernanUlloaEc &nbsp;·&nbsp; YouTube</p>' +
+              '<h3 class="yt-card__title">' + title + '</h3>' +
+              '<p class="yt-card__date">' + date + '</p>' +
+            '</div>';
+          grid.appendChild(card);
+        });
+      } catch (e) {
+        /* Curated fallback cards already in DOM — silently keep them */
+      }
+    })();
+
+    /* ══════════════════════════════════════
+       HERO PARALLAX — statue reacts to mouse
+    ══════════════════════════════════════ */
+    (function () {
+      const bg  = document.getElementById('hero-parallax');
+      if (!bg) return;
+
+      let tx = 0, ty = 0, cx = 0, cy = 0;
+      let raf = null;
+
+      window.addEventListener('mousemove', e => {
+        tx = (e.clientX / window.innerWidth  - 0.5) * -22;
+        ty = (e.clientY / window.innerHeight - 0.5) * -14;
+        if (!raf) raf = requestAnimationFrame(step);
+      }, { passive: true });
+
+      function step() {
+        raf = null;
+        cx += (tx - cx) * 0.06;
+        cy += (ty - cy) * 0.06;
+        bg.style.transform = `scale(1.06) translate(${cx}px, ${cy}px)`;
+        if (Math.abs(tx - cx) > 0.1 || Math.abs(ty - cy) > 0.1) {
+          raf = requestAnimationFrame(step);
+        }
+      }
+    })();
+  </script>
+
+  <script src="image-slot.js"></script>
+
+  <!-- React + Babel (for Tweaks panel only) -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+
+  <div id="tweaks-root"></div>
+
+  <script type="text/babel">
+    /* ─────────────────────────────────────────────────────────
+       TWEAK DEFAULTS  (JSON block — host rewrites on disk)
+    ───────────────────────────────────────────────────────── */
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "modo": "luz",
+      "voz": "sans",
+      "acento": "#C8982A"
+    }/*EDITMODE-END*/;
+
+    /* ─── accent → bdr-gold map ─── */
+    const BDR = {
+      "#C8982A": "rgba(200,152,42,.28)",
+      "#A87820": "rgba(168,120,32,.28)",
+      "#8C6030": "rgba(140,96,48,.28)"
+    };
+
+    function applyTokens(t) {
+      const root = document.documentElement.style;
+      // Accent
+      root.setProperty('--gold',     t.acento);
+      root.setProperty('--gold-l',   t.acento);
+      root.setProperty('--bdr-gold', BDR[t.acento] || "rgba(200,152,42,.28)");
+      // Modo
+      document.body.classList.toggle('dark', t.modo === 'noche');
+      // Voz
+      document.body.classList.remove('type-editorial', 'type-sans');
+      if (t.voz === 'editorial') document.body.classList.add('type-editorial');
+      if (t.voz === 'sans')      document.body.classList.add('type-sans');
+    }
+
+    function TweaksApp() {
+      const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+      React.useEffect(() => { applyTokens(t); }, [t]);
+
+      return (
+        <TweaksPanel title="Tweaks">
+
+          <TweakSection label="Ambiente" />
+          <TweakRadio
+            label="Modo cromático"
+            value={t.modo}
+            options={[
+              { value: 'luz',   label: 'Luz'   },
+              { value: 'noche', label: 'Noche' }
+            ]}
+            onChange={v => setTweak('modo', v)}
+          />
+
+          <TweakSection label="Tipografía" />
+          <TweakRadio
+            label="Voz del titular"
+            value={t.voz}
+            options={[
+              { value: 'clasica',   label: 'Clásica'  },
+              { value: 'editorial', label: 'Editorial' },
+              { value: 'sans',      label: 'Sans'      }
+            ]}
+            onChange={v => setTweak('voz', v)}
+          />
+
+          <TweakSection label="Acento" />
+          <TweakColor
+            label="Tono dorado"
+            value={t.acento}
+            options={['#C8982A', '#A87820', '#8C6030']}
+            onChange={v => setTweak('acento', v)}
+          />
+
+        </TweaksPanel>
+      );
+    }
+
+    applyTokens(TWEAK_DEFAULTS);
+    ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp />);
+
+    /* Auto-print: wait for fonts + Babel + 600ms buffer */
+    document.fonts.ready.then(function() {
+      setTimeout(function() { window.print(); }, 600);
+    });
+  </script>
+
+</body>
+</html>
