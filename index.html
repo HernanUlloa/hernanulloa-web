@@ -2463,13 +2463,19 @@
       <p class="featured-video__meta">Ab. Hernán Ulloa Ordóñez &nbsp;·&nbsp; Facebook · Video Oficial</p>
     </div>
 
-    <div class="featured-video__frame">
-      <iframe
-        src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2FHernanUlloaO%2Fvideos%2F1865269457059691%2F&show_text=false&width=560&mute=0"
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-        allowfullscreen="true"
-        scrolling="no">
-      </iframe>
+    <div class="featured-video__frame" id="fv-frame" onclick="loadFeaturedVideo()" style="cursor:pointer">
+      <img id="fv-thumb"
+        src="https://img.youtube.com/vi/iukdvVHG7Fg/maxresdefault.jpg"
+        onerror="this.src='https://img.youtube.com/vi/iukdvVHG7Fg/hqdefault.jpg'"
+        alt="Un Momento Histórico en la Defensa Jurídica"
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.18)">
+        <div style="width:68px;height:68px;border-radius:50%;background:rgba(212,168,83,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(0,0,0,.35);transition:transform .2s">
+          <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
+            <path d="M2 2L20 13L2 24V2Z" fill="#000" stroke="#000" stroke-width="1"/>
+          </svg>
+        </div>
+      </div>
     </div>
 
   </section>
@@ -3097,14 +3103,6 @@
     </button>
   </div>
 
-  <div id="tweaks-root"></div>
-
-  <script src="image-slot.js"></script>
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-  <script type="text/babel" src="tweaks-panel.jsx"></script>
-
   <script>
     /* ══ Navbar scroll ══ */
     const navbar = document.getElementById('navbar');
@@ -3244,6 +3242,14 @@
       setTimeout(function(){var b=document.querySelector('.ai-chat__badge');if(b&&!chatOpen)b.textContent='1';},8000);
     });
 
+    function loadFeaturedVideo() {
+      var frame = document.getElementById('fv-frame');
+      if (!frame) return;
+      frame.innerHTML = '<iframe src="https://www.youtube.com/embed/iukdvVHG7Fg?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>';
+      frame.style.cursor = 'default';
+      frame.onclick = null;
+    }
+
     /* ══ Hero Slideshow ══ */
     (function(){
       var container=document.getElementById('hero-slides');
@@ -3272,24 +3278,7 @@
     }
   </script>
 
-  <script type="text/babel">
-    function TweaksApp(){
-      const[t,setTweak]=useTweaks(window.TWEAK_DEFAULTS||{"modo":"luz","voz":"clasica","acento":"#C8982A"});
-      React.useEffect(()=>{applyTokens(t);},[t]);
-      return(
-        <TweaksPanel title="Tweaks">
-          <TweakSection label="Ambiente"/>
-          <TweakRadio label="Modo cromático" value={t.modo} options={[{value:'luz',label:'Luz'},{value:'noche',label:'Noche'}]} onChange={v=>setTweak('modo',v)}/>
-          <TweakSection label="Tipografía"/>
-          <TweakRadio label="Voz del titular" value={t.voz} options={[{value:'clasica',label:'Clásica'},{value:'editorial',label:'Editorial'},{value:'sans',label:'Sans'}]} onChange={v=>setTweak('voz',v)}/>
-          <TweakSection label="Acento"/>
-          <TweakColor label="Tono dorado" value={t.acento} options={['#C8982A','#A87820','#8C6030']} onChange={v=>setTweak('acento',v)}/>
-        </TweaksPanel>
-      );
-    }
-    if(typeof applyTokens==='function'&&window.TWEAK_DEFAULTS) applyTokens(window.TWEAK_DEFAULTS);
-    ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<TweaksApp/>);
-  </script>
+  
 
 </body>
 </html>
