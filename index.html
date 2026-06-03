@@ -7,7 +7,11 @@
   <title>Ulloa &amp; Asociados | Estudio Jurídico · hernanulloa.com</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600;1,700;1,800&family=Inter:wght@400..800&display=swap" rel="stylesheet">
+
+  <style id="__font-smoothing-base">
+    body { font-feature-settings: "kern" 1, "liga" 1, "calt" 1; }
+  </style>
 
   <style>
     /* ═══════════════════════════════════════
@@ -21,11 +25,13 @@
       --gold:        #C8982A;
       --gold-l:      #D4A853;
       --black:       #0B0A09;
-      --text:        #0B0A09;
-      --text-mid:    #5E5A56;
-      --text-light:  #9A9590;
-      --border:      rgba(11,10,9,.09);
+      --text:        #14304F;
+      --text-mid:    #44413E;
+      --text-light:  #6E6863;
+      --border:      rgba(11,10,9,.10);
       --bdr-gold:    rgba(200,152,42,.3);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'Inter', system-ui, -apple-system, sans-serif;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,9 +39,11 @@
     body {
       background: var(--white);
       color: var(--text);
-      font-family: 'DM Sans', system-ui, sans-serif;
+      font-family: var(--font-body);
+      font-weight: 400;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     /* ═══════════════════════════════════════
@@ -43,16 +51,22 @@
     ═══════════════════════════════════════ */
     .navbar {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      inset-block-start: 0;
+      inset-inline: 0;
       z-index: 500;
-      height: 90px;
+      height: 68px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0 36px;
-      background: rgba(255,255,255,0);
-      border-bottom: 1px solid transparent;
-      transition: background .45s ease, border-color .45s ease, backdrop-filter .45s ease;
+      background: rgba(255,255,255,.98);
+      border-bottom: 2.5px solid var(--gold);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 2px 20px rgba(0,0,0,.08);
+    }
+    .navbar.scrolled {
+      box-shadow: 0 4px 28px rgba(0,0,0,.13);
     }
     .navbar.scrolled {
       background: rgba(255,255,255,.93);
@@ -64,7 +78,7 @@
     /* ── Logo ── */
     .logo { text-decoration: none; display: flex; align-items: center; }
     .logo__mark {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: 24px;
       font-weight: 700;
       letter-spacing: .16em;
@@ -90,7 +104,7 @@
       letter-spacing: .38em;
       text-transform: uppercase;
       color: var(--text-mid);
-      font-weight: 300;
+      font-weight: 400;
       text-align: center;
     }
     .logo__sub2 {
@@ -99,26 +113,27 @@
       text-align: center;
       text-transform: uppercase;
       color: var(--text-light);
-      font-weight: 300;
+      font-weight: 400;
     }
 
     /* ── Nav links ── */
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 2px;
       list-style: none;
     }
     .nav-links a {
-      font-size: 8.5px;
-      font-weight: 400;
-      letter-spacing: .10em;
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: .18em;
       text-transform: uppercase;
-      color: var(--black);
+      color: #0B0A09;
       text-decoration: none;
       position: relative;
-      padding-bottom: 3px;
-      transition: color .22s;
+      padding: 6px 10px;
+      white-space: nowrap;
+      transition: color .2s;
     }
     .nav-links a::after {
       content: '';
@@ -134,16 +149,18 @@
     /* ── CTA button ── */
     .nav-cta {
       text-decoration: none;
-      font-size: 9.5px;
-      font-weight: 500;
-      letter-spacing: .24em;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .18em;
       text-transform: uppercase;
-      color: var(--black);
-      border: 1px solid var(--black);
-      padding: 11px 26px;
-      transition: background .28s, color .28s, border-color .28s;
+      color: #ffffff;
+      background: #14304F;
+      border: none;
+      padding: 11px 20px;
+      transition: background .25s, transform .15s;
       white-space: nowrap;
     }
+    .nav-cta:hover { background: var(--gold); transform: translateY(-1px); }
     .nav-cta:hover {
       background: var(--gold);
       border-color: var(--gold);
@@ -260,7 +277,7 @@
     /* Credentials */
     .creds {
       font-size: 10.5px;
-      font-weight: 300;
+      font-weight: 400;
       letter-spacing: .09em;
       text-transform: uppercase;
       color: var(--text-mid);
@@ -277,15 +294,29 @@
       opacity: .55;
     }
 
+
+    /* Gold text contrast — outline/shadow so gold is legible on any bg */
+    .headline em,
+    .sec-title em,
+    .profile__name em,
+    .featured-video__title em {
+      color: var(--gold);
+      text-shadow: 1px 1px 0 rgba(0,0,0,.55), -1px -1px 0 rgba(0,0,0,.25);
+    }
+    .sec-eyebrow__txt {
+      color: var(--gold);
+      text-shadow: 0 1px 2px rgba(0,0,0,.18);
+    }
+
     /* Main headline */
     .headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(46px, 4.8vw, 80px);
+      font-family: var(--font-display);
+      font-size: clamp(48px, 5vw, 84px);
       font-weight: 900;
-      line-height: 1.06;
+      line-height: 1.04;
       color: var(--black);
       margin-bottom: 32px;
-      letter-spacing: -.01em;
+      letter-spacing: -.02em;
       text-wrap: pretty;
     }
     .headline em {
@@ -305,10 +336,10 @@
     /* Body copy */
     .subtext {
       font-size: 15.5px;
-      font-weight: 300;
-      line-height: 1.78;
+      font-weight: 450;
+      line-height: 1.72;
       color: var(--text-mid);
-      max-width: 455px;
+      max-width: 470px;
       margin-bottom: 52px;
     }
 
@@ -325,13 +356,13 @@
       align-items: center;
       gap: 13px;
       text-decoration: none;
-      font-size: 9.5px;
-      font-weight: 500;
-      letter-spacing: .26em;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .16em;
       text-transform: uppercase;
       color: var(--white);
-      background: var(--black);
-      padding: 17px 38px;
+      background: var(--text);
+      padding: 18px 40px;
       transition: background .3s, transform .2s;
       flex-shrink: 0;
     }
@@ -583,7 +614,7 @@
     }
     /* Sans — completely different personality: DM Sans, medium weight */
     body.type-sans .headline {
-      font-family: 'DM Sans', system-ui, sans-serif;
+      font-family: var(--font-body);
       font-weight: 500;
       font-size: clamp(38px, 4.2vw, 68px);
       line-height: 1.1;
@@ -591,7 +622,7 @@
     }
     body.type-sans .headline em {
       font-style: normal;
-      font-weight: 300;
+      font-weight: 400;
       color: var(--gold);
     }
 
@@ -623,15 +654,15 @@
       color: var(--gold);
     }
     .sec-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 3.8vw, 58px);
-      font-weight: 700; line-height: 1.08;
+      font-family: var(--font-display);
+      font-size: clamp(38px, 3.9vw, 60px);
+      font-weight: 800; line-height: 1.07; letter-spacing: -.01em;
       color: var(--black); margin-bottom: 16px;
     }
     .sec-title em { font-style: italic; color: var(--gold); }
     .sec-sub {
-      font-size: 15px; font-weight: 300;
-      line-height: 1.72; color: var(--text-mid);
+      font-size: 16px; font-weight: 450;
+      line-height: 1.7; color: var(--text-mid);
       max-width: 520px;
     }
 
@@ -697,14 +728,14 @@
     .card-inner { transition: transform .3s ease; }
 
     .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 16.5px; font-weight: 600;
-      line-height: 1.25; color: var(--black);
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 700;
+      line-height: 1.24; color: var(--black);
       margin-bottom: 12px;
     }
     .card-desc {
-      font-size: 13px; font-weight: 300;
-      line-height: 1.7; color: var(--text-mid);
+      font-size: 14px; font-weight: 420;
+      line-height: 1.68; color: var(--text-mid);
     }
 
     .areas__foot {
@@ -802,7 +833,7 @@
     }
     body.dark .photo-strip { background: rgba(0,0,0,.6); }
     .photo-strip__name {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: 13px; font-weight: 600;
       color: var(--black); letter-spacing: .04em;
     }
@@ -818,7 +849,7 @@
     }
 
     .profile__name {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: clamp(32px, 3.2vw, 52px);
       font-weight: 700; line-height: 1.1;
       color: var(--black); margin-bottom: 8px;
@@ -833,7 +864,7 @@
       background: var(--gold); margin-bottom: 28px;
     }
     .profile__bio {
-      font-size: 15.5px; font-weight: 300;
+      font-size: 16.5px; font-weight: 430;
       line-height: 1.82; color: var(--text-mid);
       margin-bottom: 48px; max-width: 540px;
     }
@@ -848,13 +879,13 @@
     }
     .pcred { border-top: 1.5px solid var(--gold); padding-top: 16px; }
     .pcred__ttl {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: 13px; font-weight: 700;
       line-height: 1.3; color: var(--black);
       margin-bottom: 7px;
     }
     .pcred__desc {
-      font-size: 12px; font-weight: 300;
+      font-size: 12px; font-weight: 400;
       line-height: 1.65; color: var(--text-mid);
     }
 
@@ -872,14 +903,14 @@
     }
     .featured-video__text { display: flex; flex-direction: column; }
     .featured-video__title {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: clamp(32px, 3.4vw, 52px);
       font-weight: 700; line-height: 1.1;
       color: var(--black); margin-bottom: 16px;
     }
     .featured-video__title em { font-style: italic; color: var(--gold); }
     .featured-video__desc {
-      font-size: 15px; font-weight: 300;
+      font-size: 15.5px; font-weight: 400;
       line-height: 1.78; color: var(--text-mid);
       margin-bottom: 32px; max-width: 440px;
     }
@@ -986,7 +1017,7 @@
       margin-bottom: 4px;
     }
     .yt-card__title {
-      font-size: 13px; font-weight: 500;
+      font-size: 13.5px; font-weight: 600;
       line-height: 1.35; color: var(--black);
       margin-bottom: 4px;
       display: -webkit-box;
@@ -996,7 +1027,7 @@
     }
     .yt-card__date {
       font-size: 11px; color: var(--text-light);
-      font-weight: 300;
+      font-weight: 400;
     }
     .yt-card__iframe-wrap {
       position: relative;
@@ -1052,15 +1083,15 @@
     }
     .press-card__date {
       font-size: 10px; letter-spacing: .12em;
-      color: var(--text-light); font-weight: 300;
+      color: var(--text-light); font-weight: 400;
     }
     .press-card__title {
-      font-family: 'Playfair Display', serif;
-      font-size: 15px; font-weight: 600;
+      font-family: var(--font-display);
+      font-size: 15.5px; font-weight: 700;
       line-height: 1.35; color: var(--black);
     }
     .press-card__desc {
-      font-size: 12.5px; font-weight: 300;
+      font-size: 13px; font-weight: 420;
       line-height: 1.65; color: var(--text-mid);
       flex: 1;
     }
@@ -1156,7 +1187,7 @@
       border-left: 1px solid var(--border);
     }
     .justicia-strip__quote {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: clamp(22px, 2.4vw, 36px);
       font-weight: 400;
       font-style: italic;
@@ -1269,8 +1300,8 @@
       background: var(--white);
       border: 1px solid var(--border);
       color: var(--black);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px; font-weight: 300;
+      font-family: var(--font-body);
+      font-size: 14px; font-weight: 400;
       padding: 13px 16px;
       outline: none;
       transition: border-color .25s;
@@ -1294,7 +1325,7 @@
       padding: 16px 34px;
       transition: background .25s, transform .2s;
       align-self: flex-start;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
     }
     .c-submit:hover { background: var(--gold-bright); transform: translateY(-2px); }
     .c-submit svg { flex-shrink: 0; }
@@ -1320,7 +1351,7 @@
     }
     .footer__logo { display: flex; flex-direction: column; gap: 10px; }
     .footer__logo-mark {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: 20px; font-weight: 700;
       letter-spacing: .18em; text-transform: uppercase;
       color: #EDE8DE; line-height: 1;
@@ -1331,7 +1362,7 @@
       text-transform: uppercase; color: rgba(237,232,222,.35);
     }
     .footer__tagline {
-      font-size: 13px; font-weight: 300;
+      font-size: 13.5px; font-weight: 400;
       line-height: 1.7; color: rgba(237,232,222,.45);
       max-width: 280px; margin-top: 12px;
     }
@@ -1342,7 +1373,7 @@
     }
     .footer__links { display: flex; flex-direction: column; gap: 10px; }
     .footer__link {
-      font-size: 13px; font-weight: 300;
+      font-size: 13.5px; font-weight: 400;
       color: rgba(237,232,222,.5); text-decoration: none;
       transition: color .2s;
     }
@@ -1363,7 +1394,7 @@
       padding-top: 28px;
     }
     .footer__copy {
-      font-size: 11px; font-weight: 300;
+      font-size: 11px; font-weight: 400;
       color: rgba(237,232,222,.25); letter-spacing: .06em;
     }
     .footer__domain {
@@ -1442,13 +1473,13 @@
       margin-bottom: 6px;
     }
     .rec-card__title {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: 15px; font-weight: 600;
       line-height: 1.3; color: var(--black);
       margin-bottom: 8px;
     }
     .rec-card__desc {
-      font-size: 12px; font-weight: 300;
+      font-size: 12px; font-weight: 400;
       line-height: 1.65; color: var(--text-mid);
     }
     .rec-card__cta {
@@ -1482,7 +1513,7 @@
       gap: 10px;
     }
     .rec-card__logo-wrap .logo-badge__abbr {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: 22px;
       font-weight: 700;
       line-height: 1;
@@ -1539,13 +1570,13 @@
       margin-bottom: 12px;
     }
     .pay-modal__title {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: 28px; font-weight: 700;
       color: var(--black); margin-bottom: 8px; line-height: 1.15;
     }
     .pay-modal__price {
       font-size: 42px; font-weight: 700;
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       color: var(--gold); line-height: 1;
       margin: 20px 0 4px;
     }
@@ -1563,7 +1594,7 @@
       padding: 20px 0;
     }
     .pay-modal__includes li {
-      font-size: 13.5px; font-weight: 300;
+      font-size: 13.5px; font-weight: 400;
       color: var(--text-mid); display: flex;
       align-items: center; gap: 10px;
     }
@@ -1577,7 +1608,7 @@
       gap: 12px; width: 100%;
       background: #009cde; color: #fff;
       border: none; cursor: pointer; padding: 17px 24px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 13px; font-weight: 600;
       letter-spacing: .06em; text-decoration: none;
       transition: background .25s, transform .2s;
@@ -1585,7 +1616,7 @@
     }
     .pay-btn:hover { background: #007ab8; transform: translateY(-2px); }
     .pay-note {
-      font-size: 11px; font-weight: 300;
+      font-size: 11px; font-weight: 400;
       color: var(--text-light); text-align: center;
       line-height: 1.5;
     }
@@ -1604,11 +1635,11 @@
       color: var(--gold);
     }
     .pay-success__title {
-      font-family: 'Playfair Display', serif;
+      font-family: var(--font-display);
       font-size: 22px; font-weight: 700; color: var(--black);
     }
     .pay-success__sub {
-      font-size: 13.5px; font-weight: 300;
+      font-size: 13.5px; font-weight: 400;
       color: var(--text-mid); max-width: 360px; line-height: 1.7;
     }
     .pay-success__actions { display: flex; flex-direction: column; gap: 10px; width: 100%; }
@@ -1618,7 +1649,7 @@
       background: #25D366; color: #fff;
       text-decoration: none; font-size: 12px;
       font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       transition: background .25s;
     }
     .pay-success__wa:hover { background: #1fba58; }
@@ -1628,7 +1659,7 @@
       border: 1px solid var(--border); color: var(--black);
       text-decoration: none; font-size: 12px;
       font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       transition: border-color .25s, color .25s;
     }
     .pay-success__cal:hover { border-color: var(--gold); color: var(--gold); }
@@ -1701,7 +1732,7 @@
     .msg--user { align-self: flex-end; }
     .msg__bubble {
       padding: 10px 14px;
-      font-size: 13px; font-weight: 300;
+      font-size: 13.5px; font-weight: 400;
       line-height: 1.55;
       border-radius: 2px;
     }
@@ -1725,7 +1756,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       background: var(--gold); color: var(--black);
       border: none; cursor: pointer; padding: 10px 16px;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 11px; font-weight: 600;
       letter-spacing: .12em; text-transform: uppercase;
       margin-top: 6px; transition: background .2s;
@@ -1737,8 +1768,8 @@
     }
     .ai-chat__input {
       flex: 1; border: none; outline: none;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px; font-weight: 300;
+      font-family: var(--font-body);
+      font-size: 13.5px; font-weight: 400;
       color: var(--black); background: transparent;
       resize: none; line-height: 1.4;
     }
@@ -1813,7 +1844,7 @@
       transform: translateY(-50%);
       background: var(--black);
       color: #EDE8DE;
-      font-family: 'DM Sans', sans-serif;
+      font-family: var(--font-body);
       font-size: 11px; font-weight: 400;
       letter-spacing: .06em;
       white-space: nowrap;
@@ -1824,6 +1855,205 @@
       transition: opacity .25s;
     }
     .ai-chat__trigger:hover::before { opacity: 1; }
+
+    /* ─── Navbar Dropdown ─── */
+    .nav-dropdown { position: relative; }
+    .nav-sub {
+      position: absolute;
+      top: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--gold);
+      box-shadow: 0 8px 32px rgba(0,0,0,.13);
+      min-width: 220px;
+      list-style: none;
+      padding: 8px 0;
+      opacity: 0; pointer-events: none;
+      transition: opacity .22s, transform .22s;
+      transform: translateX(-50%) translateY(6px);
+      z-index: 600;
+    }
+    .nav-dropdown:hover .nav-sub {
+      opacity: 1; pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-sub a {
+      display: block;
+      font-size: 10px !important;
+      font-weight: 600 !important;
+      letter-spacing: .12em !important;
+      text-transform: uppercase;
+      color: var(--black) !important;
+      padding: 10px 18px !important;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background .18s, color .18s;
+    }
+    .nav-sub a:hover { background: var(--text); color: #fff !important; }
+
+    /* ─── Team Section ─── */
+    .equipo {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 100px 80px;
+    }
+    .equipo__head { max-width: 640px; margin-bottom: 72px; }
+    .team-member {
+      display: grid;
+      grid-template-columns: 38% 62%;
+      gap: 0;
+      border-top: 1px solid var(--border);
+      padding: 72px 0;
+      align-items: start;
+    }
+    .team-member:last-child { border-bottom: 1px solid var(--border); }
+    .team-member--alt { grid-template-columns: 62% 38%; }
+    .team-member--alt .team-photo { order: 2; }
+    .team-member--alt .team-text  { order: 1; padding-right: 64px; padding-left: 0; }
+
+    .team-photo {
+      position: relative;
+      padding-right: 48px;
+    }
+    .team-photo__frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+    }
+    .team-photo__frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform .7s ease;
+    }
+    .team-member:hover .team-photo__frame img { transform: scale(1.03); }
+    .team-photo__frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20,48,79,.18) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .team-photo__offset {
+      position: absolute;
+      top: 16px; left: 16px; right: -16px; bottom: -16px;
+      border: 1px solid var(--bdr-gold);
+      z-index: -1;
+    }
+
+    .team-text { padding-left: 64px; }
+    .team-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .team-badge__num {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .22em; color: var(--gold);
+    }
+    .team-badge__rule { width: 24px; height: 1px; background: var(--gold); }
+    .team-badge__role {
+      font-size: 9px; font-weight: 600;
+      letter-spacing: .24em; text-transform: uppercase;
+      color: var(--text-light);
+    }
+    .team-name {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 2.8vw, 44px);
+      font-weight: 700; line-height: 1.1;
+      color: var(--black); margin-bottom: 6px;
+    }
+    .team-title {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text-mid); margin-bottom: 24px;
+    }
+    .team-rule { width: 40px; height: 2px; background: var(--gold); margin-bottom: 24px; }
+    .team-bio {
+      font-size: 15px; font-weight: 400;
+      line-height: 1.82; color: var(--text-mid);
+      margin-bottom: 32px; max-width: 520px;
+    }
+    .team-bio strong { color: var(--black); font-weight: 600; }
+    .team-areas {
+      display: flex; flex-wrap: wrap; gap: 7px;
+      margin-bottom: 28px;
+    }
+    .team-area {
+      font-size: 8.5px; font-weight: 600;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: var(--text-light);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+    }
+    .team-founder-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--bdr-gold);
+      padding: 8px 16px;
+    }
+
+    @media (max-width: 1100px) {
+      .equipo { padding: 72px 28px; }
+      .team-member { grid-template-columns: 1fr; gap: 40px; }
+      .team-member--alt .team-photo { order: 1; }
+      .team-member--alt .team-text  { order: 2; padding-right: 0; padding-left: 0; }
+      .team-photo { padding-right: 0; }
+      .team-text { padding-left: 0; }
+    }
+
+    /* ─── Galería Parada ─── */
+    .parada-gallery {
+      padding: 56px 0 0;
+      margin-bottom: 48px;
+    }
+    .parada-gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 4px;
+    }
+    .parada-gallery__cell {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .parada-gallery__cell--wide {
+      grid-column: span 2;
+    }
+    .parada-gallery__cell img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform .6s ease;
+      filter: sepia(.12) contrast(1.04);
+    }
+    .parada-gallery__cell--wide img { height: 280px; object-position: center center; }
+    .parada-gallery__cell:hover img { transform: scale(1.04); filter: sepia(0) contrast(1.08); }
+    .parada-gallery__caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(20,48,79,.82) 0%, transparent 100%);
+      color: rgba(255,255,255,.9);
+      font-size: 10px; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 24px 16px 12px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .parada-gallery__cell:hover .parada-gallery__caption { opacity: 1; }
+    @media (max-width: 1100px) {
+      .parada-gallery__grid { grid-template-columns: repeat(2, 1fr); }
+      .parada-gallery__cell--wide { grid-column: span 2; }
+      .parada-gallery__cell--wide img { aspect-ratio: 16/7; }
+    }
   </style>
 </head>
 
@@ -1841,12 +2071,19 @@
 
     <ul class="nav-links">
       <li><a href="#inicio">Inicio</a></li>
-      <li><a href="#areas">Práctica</a></li>
-      <li><a href="#marca">Perfil</a></li>
+      <li><a href="#areas">Especialidades</a></li>
+      <li><a href="#marca">Hernán Ulloa</a></li>
       <li><a href="#entrevistas">Entrevistas</a></li>
       <li><a href="#prensa">Prensa</a></li>
       <li><a href="#recursos">Recursos</a></li>
-      <li><a href="#estudio">Estudio</a></li>
+      <li class="nav-dropdown">
+        <a href="#estudio">El Equipo ▾</a>
+        <ul class="nav-sub">
+          <li><a href="#socio-hernan-parada">Dr. Hernán Ulloa Parada</a></li>
+          <li><a href="#socio-hernan">Ab. Hernán Ulloa Ordóñez</a></li>
+          <li><a href="#socio-domenica">Ab. Doménica Ulloa</a></li>
+        </ul>
+      </li><li><a href="#ayuda-social">Ayuda Social</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
 
@@ -2512,6 +2749,156 @@
   </section>
 
 
+
+  <!-- ═══════════════════════════════════════════════════
+       AYUDA SOCIAL (próximamente)
+  ═══════════════════════════════════════════════════ -->
+    <!-- ═══════════════════════════════════════════════════
+       EL EQUIPO
+  ═══════════════════════════════════════════════════ -->
+  <section class="equipo" id="estudio">
+
+    <div class="equipo__head">
+      <div class="sec-eyebrow">
+        <div class="sec-eyebrow__rule"></div>
+        <span class="sec-eyebrow__txt">El Equipo</span>
+      </div>
+      <h2 class="sec-title">Socios del <em>Estudio</em></h2>
+      <p class="sec-sub">Tres generaciones de excelencia jurídica al servicio de la justicia ecuatoriana. Cada socio aporta una perspectiva única, forjada en los escenarios más exigentes del Derecho nacional e internacional.</p>
+    </div>
+
+    <!-- ── SOCIO 01: Dr. Hernán Ulloa Parada ── -->
+    <div class="team-member" id="socio-hernan-parada">
+      <div class="team-photo">
+        <div class="team-photo__frame">
+          <img src="assets/parada-retrato.png" alt="Dr. Hernán Ulloa Parada — Fundador">
+        </div>
+        <div class="team-photo__offset"></div>
+      </div>
+      <div class="team-text">
+        <div class="team-badge">
+          <span class="team-badge__num">01</span>
+          <div class="team-badge__rule"></div>
+          <span class="team-badge__role">Socio Fundador · In Memoriam</span>
+        </div>
+        <h2 class="team-name">Dr. Hernán<br>Ulloa Parada</h2>
+        <p class="team-title">Magistrado de la Corte Suprema de Justicia · Fundador del Estudio</p>
+        <div class="team-rule"></div>
+        <p class="team-bio">
+          El Dr. Hernán Ulloa Parada fue uno de los juristas más respetados del Ecuador contemporáneo. Su carrera culminó como <strong>Magistrado de la Tercera Sala de lo Penal de la Corte Suprema de Justicia</strong> — el más alto tribunal del país —, cargo que desempeñó con una rectitud y un rigor que se convirtieron en su sello personal. Pero antes de llegar a las más altas esferas del poder judicial, el Dr. Ulloa Parada construyó su trayectoria caso a caso, persona a persona, defendiendo a quienes el sistema dejaba desamparados. Fue en ese ejercicio cotidiano de la justicia donde fundó <strong>Ulloa &amp; Asociados</strong>, un estudio que lleva su nombre, sus valores y su vocación. Como padre del Ab. Hernán Ulloa Ordóñez y abuelo de la Ab. Doménica Ulloa, legó a su familia no solo una profesión, sino una <strong>misión: que nadie quede sin defensa por no tener a quién acudir</strong>.
+        </p>
+        <div class="team-areas">
+          <span class="team-area">Derecho Penal</span>
+          <span class="team-area">Corte Suprema de Justicia</span>
+          <span class="team-area">Magistratura</span>
+          <span class="team-area">Fundador 1977</span>
+        </div>
+        <div class="team-founder-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Magistrado · Corte Suprema de Justicia · 2008
+        </div>
+      </div>
+    </div>
+
+    <!-- ── GALERÍA PARADA ── -->
+    <div class="parada-gallery">
+      <div class="sec-eyebrow" style="margin-bottom:28px">
+        <div class="sec-eyebrow__rule"></div>
+        <span class="sec-eyebrow__txt">Galería Histórica · Dr. Hernán Ulloa Parada</span>
+      </div>
+      <div class="parada-gallery__grid">
+        <div class="parada-gallery__cell parada-gallery__cell--wide">
+          <img src="assets/parada-gallery-4.png" alt="Dr. Ulloa Parada en acto protocolar · Corte Suprema" loading="lazy">
+          <div class="parada-gallery__caption">Corte Suprema de Justicia · Magistrado Sala Penal · Quito, 2008</div>
+        </div>
+        <div class="parada-gallery__cell">
+          <img src="assets/parada-gallery-1.png" alt="Dr. Ulloa Parada con el Ab. Hernán Ulloa Ordóñez" loading="lazy">
+          <div class="parada-gallery__caption">Con el Ab. Hernán Ulloa Ordóñez · Quito</div>
+        </div>
+        <div class="parada-gallery__cell parada-gallery__cell--wide">
+          <img src="assets/parada-gallery-3.png" alt="Dr. Ulloa Parada en acto oficial" loading="lazy" style="object-position:center top">
+          <div class="parada-gallery__caption">Acto oficial · Alfombra roja · Quito</div>
+        </div>
+        <div class="parada-gallery__cell">
+          <img src="assets/parada-gallery-2.png" alt="Dr. Ulloa Parada en evento institucional" loading="lazy">
+          <div class="parada-gallery__caption">Evento institucional · Ecuador</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SOCIO 02: Ab. Hernán Ulloa Ordóñez ── -->
+    <div class="team-member team-member--alt" id="socio-hernan">
+      <div class="team-text">
+        <div class="team-badge">
+          <span class="team-badge__num">02</span>
+          <div class="team-badge__rule"></div>
+          <span class="team-badge__role">Socio Presidente</span>
+        </div>
+        <h2 class="team-name">Ab. Hernán<br>Ulloa Ordóñez</h2>
+        <p class="team-title">Consultor Jurídico · Expresidente del CPCCS · Socio Fundador — Presidente</p>
+        <div class="team-rule"></div>
+        <p class="team-bio">
+          Antes de ser el abogado que hoy conocen los foros jurídicos del Ecuador, Hernán Ulloa Ordóñez fue el defensor de personas comunes enfrentadas a un sistema que no siempre las escucha. Defendió a familias sin recursos, a trabajadores despedidos injustamente, a madres cuyo único delito fue no poder pagar, a ciudadanos procesados por un Estado que confundió el poder con la justicia. Esa experiencia de campo — visceral, humana y profundamente formativa — construyó al jurista estratégico que es hoy: uno que conoce el Derecho no solo desde los libros, sino <strong>desde la calle, desde el dolor de sus clientes y desde la indignación que produce la injusticia</strong>. Luego vino el CPCCS, donde como Presidente tuvo acceso al corazón del poder institucional del Estado, comprendiendo sus mecanismos internos, sus presiones y sus posibilidades reales. Esa doble experiencia — la del abogado de causas sociales y la del líder institucional — es lo que hace de Ulloa &amp; Asociados un estudio <strong>único, estratégico e implacable</strong>, con sede en Quito y presencia a través de asociados en todo el Ecuador.
+        </p>
+        <div class="team-areas">
+          <span class="team-area">Derecho Penal</span>
+          <span class="team-area">Penal Económico</span>
+          <span class="team-area">Compliance</span>
+          <span class="team-area">Constitucional</span>
+          <span class="team-area">Litigación Compleja</span>
+        </div>
+      </div>
+      <div class="team-photo">
+        <div class="team-photo__frame">
+          <img src="assets/ulloa-retrato.png" alt="Ab. Hernán Ulloa Ordóñez">
+        </div>
+        <div class="team-photo__offset"></div>
+      </div>
+    </div>
+
+    <!-- ── SOCIO 03: Ab. Doménica Ulloa ── -->
+    <div class="team-member" id="socio-domenica">
+      <div class="team-photo">
+        <div class="team-photo__frame">
+          <img src="assets/domenica-ulloa.png" alt="Ab. Doménica Ulloa">
+        </div>
+        <div class="team-photo__offset"></div>
+      </div>
+      <div class="team-text">
+        <div class="team-badge">
+          <span class="team-badge__num">03</span>
+          <div class="team-badge__rule"></div>
+          <span class="team-badge__role">Asociada</span>
+        </div>
+        <h2 class="team-name">Ab. Doménica<br>Ulloa</h2>
+        <p class="team-title">Abogada · Derecho Contencioso Administrativo &amp; Constitucional</p>
+        <div class="team-rule"></div>
+        <p class="team-bio">
+          Mi trayectoria profesional como abogada ha estado marcada por una profunda convicción: <strong>detrás de cada proceso judicial existe una persona, una familia y una historia que merece ser escuchada</strong>. Trabajé en la Procuraduría General del Estado, desempeñándome en el área contencioso-administrativa. Esta experiencia me permitió conocer de cerca el funcionamiento del Estado, sus mecanismos de defensa y las estrategias jurídicas que se desarrollan frente a reclamos ciudadanos. Asimismo, tuve participación en el área de garantías jurisdiccionales y en asuntos de materia civil, adquiriendo una visión integral de los conflictos que enfrentan las personas cuando sus derechos han sido vulnerados. Mi objetivo es ofrecer una <strong>representación legal sólida, humana y estratégica</strong>, orientada a encontrar soluciones reales para cada caso y a construir caminos efectivos hacia la justicia y la reparación integral.
+        </p>
+        <div class="team-areas">
+          <span class="team-area">Contencioso Administrativo</span>
+          <span class="team-area">Garantías Jurisdiccionales</span>
+          <span class="team-area">Derecho Civil</span>
+          <span class="team-area">Derechos Constitucionales</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+
+<section id="ayuda-social" style="padding:80px;background:var(--bg);border-top:1px solid var(--border);text-align:center">
+    <div class="sec-eyebrow" style="justify-content:center;margin-bottom:20px">
+      <div class="sec-eyebrow__rule"></div>
+      <span class="sec-eyebrow__txt">Ayuda Social</span>
+      <div class="sec-eyebrow__rule"></div>
+    </div>
+    <h2 class="sec-title" style="text-align:center;margin-bottom:16px">Compromiso con la <em>Justicia Social</em></h2>
+    <p class="sec-sub" style="max-width:600px;margin:0 auto;text-align:center">El Ab. Hernán Ulloa Ordóñez ha dedicado parte de su trayectoria a la defensa de causas sociales sin costo, representando a ciudadanos vulnerables, personas privadas de la libertad injustamente y colectivos en situación de riesgo. Esta sección estará pronto disponible con información sobre nuestros programas de ayuda social.</p>
+  </section>
+
+
   <!-- ═══════════════════════════════════════════════════
        CONTACTO
   ═══════════════════════════════════════════════════ -->
@@ -2602,8 +2989,8 @@
         <p class="footer__col-title">Navegación</p>
         <div class="footer__links">
           <a class="footer__link" href="#inicio">Inicio</a>
-          <a class="footer__link" href="#areas">Áreas de Práctica</a>
-          <a class="footer__link" href="#marca">Perfil de Autoridad</a>
+          <a class="footer__link" href="#areas">Especialidades</a>
+          <a class="footer__link" href="#marca">Quién es Hernán Ulloa</a>
           <a class="footer__link" href="#entrevistas">Entrevistas</a>
           <a class="footer__link" href="#prensa">Cobertura Mediática</a>
           <a class="footer__link" href="#recursos">Recursos Jurídicos</a>
