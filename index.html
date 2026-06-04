@@ -4,6 +4,38 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/png" href="assets/logo-icon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ═══ PWA / App ═══ -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#D4A853">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Ulloa Legal">
+
+  <!-- iOS Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Ulloa Legal">
+  <link rel="apple-touch-icon" href="assets/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="72x72"   href="assets/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96"   href="assets/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="assets/icons/icon-128x128.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="assets/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="assets/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="assets/icons/icon-512x512.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/icon-96x96.png">
+  <link rel="shortcut icon" href="assets/icons/icon-96x96.png">
+
+  <!-- OG / Social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hernanulloa.com/">
+  <meta property="og:title" content="Ulloa & Asociados | Estudio Jurídico Ecuador">
+  <meta property="og:description" content="Estrategia legal implacable. Soluciones de alta gama. Ab. Hernán Ulloa Ordóñez, Expresidente del CPCCS.">
+  <meta property="og:image" content="assets/ulloa-retrato.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="description" content="Estudio Jurídico Ulloa & Asociados — Ab. Hernán Ulloa Ordóñez. Derecho Penal, Constitucional, Corporativo y más. Quito, Ecuador.">
   <title>Ulloa &amp; Asociados | Estudio Jurídico · hernanulloa.com</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -436,8 +468,84 @@
       pointer-events: none;
     }
 
-    /* The frame itself — frosted glass over hero bg image */
-    .video-frame {
+    /* ── Phone horizontal frame (hero video) ── */
+    .phone-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .phone-body {
+      position: relative;
+      background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 60%, #222 100%);
+      border-radius: 20px;
+      padding: 4px 22px;
+      box-shadow:
+        0 0 0 1.5px #333,
+        0 0 0 3px #111,
+        0 20px 60px rgba(0,0,0,.7),
+        inset 0 1px 0 rgba(255,255,255,.08),
+        inset 0 -1px 0 rgba(0,0,0,.4);
+    }
+    .phone-screen {
+      position: relative;
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+    .phone-screen iframe,
+    .phone-screen > div {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+    }
+    .phone-screen iframe { border: 0; }
+    /* Side buttons */
+    .phone-btn-top {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      left: -4px;
+      width: 4px; height: 30px;
+      background: linear-gradient(to right, #111, #222);
+      border-radius: 2px 0 0 2px;
+    }
+    .phone-btn-r1, .phone-btn-r2 {
+      position: absolute;
+      right: -4px;
+      width: 4px;
+      background: linear-gradient(to left, #111, #222);
+      border-radius: 0 2px 2px 0;
+    }
+    .phone-btn-r1 { top: calc(50% - 22px); height: 18px; }
+    .phone-btn-r2 { top: calc(50% + 4px);  height: 18px; }
+    /* Camera dots */
+    .phone-cam {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      right: 14px;
+      display: flex; flex-direction: column; gap: 5px;
+      align-items: center;
+    }
+    .phone-cam__dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #444, #111);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06);
+    }
+    .phone-cam__dot--big { width: 9px; height: 9px; }
+    /* Speaker grille left */
+    .phone-spkr {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      left: 14px;
+      display: flex; flex-direction: column; gap: 3px;
+    }
+    .phone-spkr__bar {
+      width: 14px; height: 2px;
+      background: rgba(255,255,255,.1);
+      border-radius: 1px;
+    }
       position: relative;
       z-index: 1;
       width: 100%;
@@ -918,14 +1026,71 @@
       font-size: 9px; letter-spacing: .28em;
       text-transform: uppercase; color: var(--text-light);
     }
-    .featured-video__frame {
+    /* TV frame wrapper */
+    .tv-wrap {
       position: relative;
       width: 100%;
-      aspect-ratio: 16/9;
-      overflow: hidden;
-      border: 1px solid var(--border);
     }
-    .featured-video__frame iframe {
+    .tv-body {
+      position: relative;
+      background: #0D0D0D;
+      border-radius: 16px 16px 4px 4px;
+      padding: 18px 18px 14px;
+      box-shadow:
+        0 0 0 3px #1a1a1a,
+        0 0 0 5px #2a2a2a,
+        0 6px 0 6px #111,
+        0 8px 0 8px #222,
+        0 24px 60px rgba(0,0,0,.7),
+        inset 0 1px 0 rgba(255,255,255,.07);
+    }
+    .tv-bezel {
+      position: relative;
+      background: #000;
+      border-radius: 6px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.04), inset 0 0 32px rgba(0,0,0,.8);
+    }
+    /* Glare overlay */
+    .tv-bezel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.06) 0%, transparent 45%, transparent 70%, rgba(255,255,255,.02) 100%);
+      pointer-events: none;
+      z-index: 2;
+      border-radius: 6px;
+    }
+    /* Stand */
+    .tv-stand {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tv-stand__neck {
+      width: 80px; height: 18px;
+      background: linear-gradient(to bottom, #111, #222);
+      border-radius: 0 0 4px 4px;
+    }
+    .tv-stand__base {
+      width: 180px; height: 10px;
+      background: linear-gradient(to bottom, #1a1a1a, #111);
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.5);
+    }
+    /* Screen dot */
+    .tv-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(212,168,83,.5);
+      position: absolute;
+      bottom: 20px; right: 22px;
+      box-shadow: 0 0 6px rgba(212,168,83,.6);
+      z-index: 3;
+    }
+    .featured-video__frame {
       position: absolute; inset: 0;
       width: 100%; height: 100%; border: 0;
     }
@@ -2164,35 +2329,15 @@
 
     </div>
 
-    <!-- ── Right — Video container ── -->
+    <!-- ── Right — Video sin marco ── -->
     <div class="hero__video">
-      <div class="video-wrap">
-        <div class="video-frame"
-             role="button"
-             aria-label="Reproducir video de presentación corporativa del Estudio Jurídico Ulloa &amp; Asociados">
-
-          <div class="brkt brkt--tl"></div>
-          <div class="brkt brkt--tr"></div>
-          <div class="brkt brkt--bl"></div>
-          <div class="brkt brkt--br"></div>
-
-          <div class="play-ring">
-            <svg class="play-icon" width="17" height="19" viewBox="0 0 17 19">
-              <path d="M1.5 1.5L15.5 9.5L1.5 17.5V1.5Z"/>
-            </svg>
-          </div>
-
-          <div class="vid-meta">
-            <span class="vid-meta__ttl">Video Corporativo</span>
-            <span class="vid-meta__sub">Presentación del Estudio &amp; Equipo</span>
-          </div>
-
-          <div class="vid-strip">
-            <span>Ab. Hernán Ulloa Ordóñez</span>
-            <span>hernanulloa.com</span>
-          </div>
-
-        </div>
+      <div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.5)">
+        <iframe
+          src="https://www.youtube.com/embed/dIKj-S8M-FU?autoplay=1&mute=1&rel=0&loop=1&playlist=dIKj-S8M-FU&modestbranding=1"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="position:absolute;inset:0;width:100%;height:100%;border:0;">
+        </iframe>
       </div>
     </div>
 
@@ -2460,21 +2605,21 @@
         en el ejercicio de su labor jurídica y de control social, reflejo de su compromiso
         con la defensa del Estado de Derecho y los derechos ciudadanos.
       </p>
-      <p class="featured-video__meta">Ab. Hernán Ulloa Ordóñez &nbsp;·&nbsp; Facebook · Video Oficial</p>
+      <p class="featured-video__meta">Ab. Hernán Ulloa Ordóñez &nbsp;·&nbsp; Video Corporativo Oficial</p>
     </div>
 
-    <div class="featured-video__frame" id="fv-frame" onclick="loadFeaturedVideo()" style="cursor:pointer">
-      <img id="fv-thumb"
-        src="https://img.youtube.com/vi/iukdvVHG7Fg/maxresdefault.jpg"
-        onerror="this.src='https://img.youtube.com/vi/iukdvVHG7Fg/hqdefault.jpg'"
-        alt="Un Momento Histórico en la Defensa Jurídica"
-        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
-      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.18)">
-        <div style="width:68px;height:68px;border-radius:50%;background:rgba(212,168,83,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(0,0,0,.35);transition:transform .2s">
-          <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
-            <path d="M2 2L20 13L2 24V2Z" fill="#000" stroke="#000" stroke-width="1"/>
-          </svg>
-        </div>
+    <div class="featured-video__frame" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;">
+      <div id="fv-frame" onclick="loadFeaturedVideo()" style="position:absolute;inset:0;cursor:pointer;">
+            <img
+              src="https://img.youtube.com/vi/iukdvVHG7Fg/maxresdefault.jpg"
+              onerror="this.src='https://img.youtube.com/vi/iukdvVHG7Fg/hqdefault.jpg'"
+              alt="Video Corporativo Ulloa & Asociados"
+              style="width:100%;height:100%;object-fit:cover;display:block;">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.22)">
+              <div style="width:72px;height:72px;border-radius:50%;background:rgba(212,168,83,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 28px rgba(0,0,0,.5);transition:transform .2s">
+                <svg width="24" height="28" viewBox="0 0 22 26" fill="none"><path d="M2 2L20 13L2 24V2Z" fill="#000"/></svg>
+              </div>
+            </div>
       </div>
     </div>
 
@@ -2920,7 +3065,7 @@
         </div>
         <div class="c-info">
           <div class="c-info__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <div><p class="c-info__label">Correo Electrónico</p><a class="c-info__val" href="mailto:presidente@hernanulloa.com">presidente@hernanulloa.com</a></div>
+          <div><p class="c-info__label">Correo Electrónico</p><a class="c-info__val" href="/cdn-cgi/l/email-protection#5c2c2e392f3538393228391c34392e323d32293030333d723f3331"><span class="__cf_email__" data-cfemail="76060413051f1213180213361e1304181718031a1a19175815191b">[email&#160;protected]</span></a></div>
         </div>
         <div class="c-info">
           <div class="c-info__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
@@ -3021,7 +3166,7 @@
         <p class="footer__col-title">Contacto Directo</p>
         <div class="footer__links">
           <a class="footer__link" href="https://wa.me/593997041927">+593 99 704 1927</a>
-          <a class="footer__link" href="mailto:presidente@hernanulloa.com">presidente@hernanulloa.com</a>
+          <a class="footer__link" href="/cdn-cgi/l/email-protection#3a4a485f49535e5f544e5f7a525f48545b544f5656555b14595557"><span class="__cf_email__" data-cfemail="23535146504a47464d5746634b46514d424d564f4f4c420d404c4e">[email&#160;protected]</span></a>
           <span class="footer__link">Quito, Ecuador · Presencia nacional</span>
           <a class="footer__link" href="https://hernanulloa.com" target="_blank">hernanulloa.com</a>
         </div>
@@ -3103,7 +3248,7 @@
     </button>
   </div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     /* ══ Navbar scroll ══ */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -3242,12 +3387,18 @@
       setTimeout(function(){var b=document.querySelector('.ai-chat__badge');if(b&&!chatOpen)b.textContent='1';},8000);
     });
 
+    function loadHeroVideo() {
+      var f = document.getElementById('hero-vid-frame');
+      if (!f) return;
+      f.innerHTML = '<iframe src="https://www.youtube.com/embed/dIKj-S8M-FU?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>';
+      f.onclick = null; f.style.cursor = 'default';
+    }
+
     function loadFeaturedVideo() {
       var frame = document.getElementById('fv-frame');
       if (!frame) return;
       frame.innerHTML = '<iframe src="https://www.youtube.com/embed/iukdvVHG7Fg?autoplay=1&rel=0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>';
-      frame.style.cursor = 'default';
-      frame.onclick = null;
+      frame.onclick = null; frame.style.cursor = 'default';
     }
 
     /* ══ Hero Slideshow ══ */
@@ -3280,5 +3431,50 @@
 
   
 
+
+  <!-- ═══ Service Worker Registration ═══ -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(function(reg) { console.log('[SW] Registered:', reg.scope); })
+          .catch(function(err) { console.warn('[SW] Registration failed:', err); });
+      });
+    }
+  </script>
+
+
+  <!-- ═══ PWA Install Prompt ═══ -->
+  <div id="pwa-install" style="display:none;position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:999;background:#0A0908;border:1px solid rgba(212,168,83,.4);padding:14px 20px;display:none;align-items:center;gap:14px;box-shadow:0 8px 32px rgba(0,0,0,.4);max-width:320px;width:90%">
+    <img src="assets/icons/icon-72x72.png" style="width:40px;height:40px;border-radius:8px;flex-shrink:0">
+    <div style="flex:1">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;color:#EDE8DE;line-height:1.2">Instalar App<br><span style="font-size:11px;font-weight:400;color:rgba(237,232,222,.45)">Ulloa & Asociados</span></div>
+    </div>
+    <button id="pwa-install-btn" style="background:var(--gold,#D4A853);border:none;cursor:pointer;padding:8px 14px;font-family:'DM Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:.1em;color:#000;text-transform:uppercase">Instalar</button>
+    <button onclick="document.getElementById('pwa-install').style.display='none'" style="background:none;border:none;cursor:pointer;color:rgba(237,232,222,.4);font-size:18px;line-height:1;padding:0 4px">&times;</button>
+  </div>
+  <script>
+    var deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      var banner = document.getElementById('pwa-install');
+      if (banner) { banner.style.display = 'flex'; }
+    });
+    var installBtn = document.getElementById('pwa-install-btn');
+    if (installBtn) {
+      installBtn.addEventListener('click', function() {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function(choice) {
+          document.getElementById('pwa-install').style.display = 'none';
+          deferredPrompt = null;
+        });
+      });
+    }
+    window.addEventListener('appinstalled', function() {
+      document.getElementById('pwa-install').style.display = 'none';
+    });
+  </script>
 </body>
 </html>
