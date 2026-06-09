@@ -2180,7 +2180,10 @@
     }
     .parada-gallery__grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 4px;
+    }
       grid-template-rows: auto auto;
       gap: 4px;
     }
@@ -2194,14 +2197,17 @@
     }
     .parada-gallery__cell img {
       width: 100%;
-      height: 280px;
+      height: 100%;
+      min-height: 220px;
+      object-fit: cover;
+      display: block;
       object-fit: cover;
       object-position: center top;
       display: block;
       transition: transform .6s ease;
       filter: sepia(.12) contrast(1.04);
     }
-    .parada-gallery__cell--wide img { height: 280px; object-position: center center; }
+    .parada-gallery__cell--wide img { height: 100%; object-position: center center; }
     .parada-gallery__cell:hover img { transform: scale(1.04); filter: sepia(0) contrast(1.08); }
     .parada-gallery__caption {
       position: absolute; bottom: 0; left: 0; right: 0;
@@ -2218,6 +2224,183 @@
       .parada-gallery__grid { grid-template-columns: repeat(2, 1fr); }
       .parada-gallery__cell--wide { grid-column: span 2; }
       .parada-gallery__cell--wide img { aspect-ratio: 16/7; }
+    }
+
+    /* ═══════════════════════════════════════════════
+       V2 — 3D · TRANSICIONES · SECCIONES · CONTRASTE
+    ═══════════════════════════════════════════════ */
+
+    /* ── Tipografía más fuerte y visible ── */
+    :root {
+      --text-mid:   #4A4640;   /* antes más claro — ahora más contraste */
+      --text-light: #6B6760;
+    }
+    .sec-title { font-weight: 800 !important; letter-spacing: -.01em; }
+    .sec-sub   { font-weight: 400 !important; font-size: 16.5px !important; color: #4A4640 !important; }
+    .card-desc, .press-card__desc, .rec-card__desc { font-weight: 400 !important; color: #4A4640 !important; }
+    .card-title { font-weight: 700 !important; }
+
+    /* ── Separación clara entre secciones ── */
+    section[id] { position: relative; }
+    .sec-divider {
+      height: 120px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .sec-divider::before,
+    .sec-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(200,152,42,.35), transparent);
+    }
+    .sec-divider__diamond {
+      width: 10px; height: 10px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      margin: 0 28px;
+      box-shadow: 0 0 0 4px rgba(200,152,42,.15), 0 0 24px rgba(200,152,42,.4);
+      flex-shrink: 0;
+    }
+
+    /* Número de sección gigante translúcido */
+    .sec-num-bg {
+      position: absolute;
+      top: 36px; right: 60px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(100px, 14vw, 220px);
+      font-weight: 700;
+      line-height: 1;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(200,152,42,.16);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    /* ── Scroll Reveal ── */
+    @media (prefers-reduced-motion: no-preference) {
+      .rv {
+        opacity: 0;
+        transform: translateY(42px);
+        transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1);
+      }
+      .rv.rv-in { opacity: 1; transform: translateY(0); }
+      .rv-d1 { transition-delay: .08s; }
+      .rv-d2 { transition-delay: .16s; }
+      .rv-d3 { transition-delay: .24s; }
+      .rv-d4 { transition-delay: .32s; }
+      .rv-left  { transform: translateX(-48px); }
+      .rv-left.rv-in  { transform: translateX(0); }
+      .rv-right { transform: translateX(48px); }
+      .rv-right.rv-in { transform: translateX(0); }
+    }
+
+    /* ── 3D Tilt en tarjetas ── */
+    .areas__grid, .press-grid, .recursos__grid, .equipo__grid { perspective: 1600px; }
+    .tilt-3d {
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform .18s ease-out, box-shadow .3s ease;
+    }
+    .tilt-3d:hover {
+      box-shadow: 0 24px 64px rgba(11,10,9,.16), 0 4px 16px rgba(200,152,42,.12);
+      z-index: 2;
+    }
+    .tilt-3d .card-inner, .tilt-3d .card-icon, .tilt-3d .card-num {
+      transform: translateZ(28px);
+    }
+
+    /* ── Botones con profundidad 3D ── */
+    .btn-primary, .nav-cta, .c-submit {
+      box-shadow: 0 4px 0 rgba(140,100,20,.55), 0 8px 24px rgba(200,152,42,.25);
+      transition: transform .15s, box-shadow .15s, background .25s;
+    }
+    .btn-primary:hover, .nav-cta:hover, .c-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 7px 0 rgba(140,100,20,.55), 0 14px 36px rgba(200,152,42,.35);
+    }
+    .btn-primary:active, .nav-cta:active, .c-submit:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 0 rgba(140,100,20,.55), 0 4px 12px rgba(200,152,42,.2);
+    }
+
+    /* ── Imágenes con marco 3D ── */
+    .photo-frame, .equipo-card__photo {
+      box-shadow: 0 20px 60px rgba(11,10,9,.18), 0 4px 16px rgba(11,10,9,.1);
+    }
+
+    /* ── Hero: profundidad en headline ── */
+    .headline {
+      text-shadow: 0 1px 0 rgba(255,255,255,.6);
+    }
+
+    /* ── Navbar con elevación al scroll ── */
+    .navbar.scrolled {
+      box-shadow: 0 8px 32px rgba(11,10,9,.12);
+    }
+
+    /* ── Logo flotante 3D ── */
+    .logo {
+      filter:
+        drop-shadow(0 6px 16px rgba(200,152,42,.35))
+        drop-shadow(0 2px 4px rgba(0,0,0,.18));
+      animation: logoFloat 4s ease-in-out infinite;
+      transition: filter .3s;
+    }
+    .logo:hover {
+      filter:
+        drop-shadow(0 12px 28px rgba(200,152,42,.55))
+        drop-shadow(0 4px 8px rgba(0,0,0,.22));
+      animation-play-state: paused;
+    }
+    @keyframes logoFloat {
+      0%,100% { transform: translateY(0px) rotate(0deg); }
+      30%     { transform: translateY(-5px) rotate(.4deg); }
+      70%     { transform: translateY(-3px) rotate(-.3deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .logo { animation: none; }
+    }
+    .nav-links a {
+      padding: 6px 14px;
+      border-radius: 2px;
+      transition: color .22s, background .22s, box-shadow .22s, transform .15s;
+    }
+    .nav-links a:hover {
+      color: var(--black) !important;
+      background: var(--gold);
+      box-shadow:
+        0 3px 0 rgba(140,100,20,.6),
+        0 6px 18px rgba(200,152,42,.28);
+      transform: translateY(-2px);
+    }
+    .nav-links a:hover::after { width: 0; }
+    .nav-links a:active { transform: translateY(0px); box-shadow: 0 1px 0 rgba(140,100,20,.6); }
+
+    .nav-cta {
+      box-shadow: 0 3px 0 rgba(140,100,20,.55), 0 6px 18px rgba(200,152,42,.22);
+      transition: background .25s, color .25s, transform .15s, box-shadow .15s, border-color .25s;
+    }
+    .nav-cta:hover {
+      transform: translateY(-3px) !important;
+      box-shadow: 0 6px 0 rgba(140,100,20,.55), 0 12px 28px rgba(200,152,42,.35) !important;
+    }
+    .nav-cta:active { transform: translateY(1px) !important; box-shadow: 0 1px 0 rgba(140,100,20,.55) !important; }
+
+    /* ── Gold sólido en títulos em (sin shimmer) ── */
+    .sec-title em, .headline em {
+      color: var(--gold) !important;
+      -webkit-text-fill-color: var(--gold) !important;
+      background: none !important;
+      animation: none !important;
+    }
+
+    @media (max-width: 1100px) {
+      .sec-num-bg { right: 20px; font-size: 90px; }
+      .sec-divider { height: 80px; }
     }
   </style>
 </head>
@@ -2361,7 +2544,10 @@
   <!-- ═══════════════════════════════════════════════════
        ÁREAS DE PRÁCTICA
   ═══════════════════════════════════════════════════ -->
-  <section class="areas" id="areas">
+    <div class="sec-divider"><div class="sec-divider__diamond"></div></div>
+
+<section class="areas" id="areas">
+    <div class="sec-num-bg">01</div>
 
     <div class="areas__head">
       <div class="sec-eyebrow">
@@ -2516,7 +2702,10 @@
   <!-- ═══════════════════════════════════════════════════
        PERFIL DE AUTORIDAD
   ═══════════════════════════════════════════════════ -->
-  <section class="profile" id="marca">
+    <div class="sec-divider"><div class="sec-divider__diamond"></div></div>
+
+<section class="profile" id="marca">
+    <div class="sec-num-bg">02</div>
 
     <!-- Photo side -->
     <div class="profile__photo">
@@ -2600,7 +2789,10 @@
   <!-- ═══════════════════════════════════════════════════
        VIDEO EMBLEMÁTICO
   ═══════════════════════════════════════════════════ -->
-  <section class="featured-video" id="video-emblematico">
+    <div class="sec-divider"><div class="sec-divider__diamond"></div></div>
+
+<section class="featured-video" id="video-emblematico">
+    <div class="sec-num-bg">03</div>
 
     <div class="featured-video__text">
       <div class="sec-eyebrow" style="margin-bottom:24px">
@@ -2637,7 +2829,10 @@
   <!-- ═══════════════════════════════════════════════════
        ENTREVISTAS EN YOUTUBE
   ═══════════════════════════════════════════════════ -->
-  <section class="youtube" id="entrevistas">
+    <div class="sec-divider"><div class="sec-divider__diamond"></div></div>
+
+<section class="youtube" id="entrevistas">
+    <div class="sec-num-bg">04</div>
 
     <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:24px; max-width:100%">
       <div style="max-width:640px">
@@ -2788,7 +2983,10 @@
   <!-- ═══════════════════════════════════════════════════
        PRENSA / NOTICIAS
   ═══════════════════════════════════════════════════ -->
-  <section class="press" id="prensa">
+    <div class="sec-divider"><div class="sec-divider__diamond"></div></div>
+
+<section class="press" id="prensa">
+    <div class="sec-num-bg">05</div>
     <div style="max-width:640px">
       <div class="sec-eyebrow">
         <div class="sec-eyebrow__rule"></div>
@@ -2859,7 +3057,10 @@
   <!-- ═══════════════════════════════════════════════════
        RECURSOS JURÍDICOS PÚBLICOS
   ═══════════════════════════════════════════════════ -->
-  <section class="recursos" id="recursos">
+    <div class="sec-divider"><div class="sec-divider__diamond"></div></div>
+
+<section class="recursos" id="recursos">
+    <div class="sec-num-bg">06</div>
     <div style="max-width:640px;margin-bottom:0">
       <div class="sec-eyebrow">
         <div class="sec-eyebrow__rule"></div>
@@ -2915,7 +3116,10 @@
     <!-- ═══════════════════════════════════════════════════
        EL EQUIPO
   ═══════════════════════════════════════════════════ -->
-  <section class="equipo" id="estudio">
+    <div class="sec-divider"><div class="sec-divider__diamond"></div></div>
+
+<section class="equipo" id="estudio">
+    <div class="sec-num-bg">07</div>
 
     <div class="equipo__head">
       <div class="sec-eyebrow">
@@ -2966,21 +3170,20 @@
         <span class="sec-eyebrow__txt">Galería Histórica · Dr. Hernán Ulloa Parada</span>
       </div>
       <div class="parada-gallery__grid">
-        <div class="parada-gallery__cell parada-gallery__cell--wide">
-          <img src="assets/parada-gallery-4.png" alt="Dr. Ulloa Parada en acto protocolar · Corte Suprema" loading="lazy">
-          <div class="parada-gallery__caption">Corte Suprema de Justicia · Magistrado Sala Penal · Quito, 2008</div>
+        <!-- Foto 3 — izquierda completa (2 filas) -->
+        <div class="parada-gallery__cell" style="grid-row: span 2;">
+          <img src="assets/parada-gallery-3.png" alt="Dr. Ulloa Parada en acto oficial" loading="lazy" style="object-position:center top;height:100%;min-height:560px">
+          <div class="parada-gallery__caption">Acto oficial &middot; Alfombra roja &middot; Quito</div>
         </div>
+        <!-- Foto 1 — derecha arriba -->
         <div class="parada-gallery__cell">
-          <img src="assets/parada-gallery-1.png" alt="Dr. Ulloa Parada con el Ab. Hernán Ulloa Ordóñez" loading="lazy">
-          <div class="parada-gallery__caption">Con el Ab. Hernán Ulloa Ordóñez · Quito</div>
+          <img src="assets/parada-gallery-4.png" alt="Dr. Ulloa Parada en acto protocolar · Corte Suprema" loading="lazy">
+          <div class="parada-gallery__caption">Corte Suprema de Justicia &middot; Magistrado Sala Penal &middot; Quito, 2008</div>
         </div>
-        <div class="parada-gallery__cell parada-gallery__cell--wide">
-          <img src="assets/parada-gallery-3.png" alt="Dr. Ulloa Parada en acto oficial" loading="lazy" style="object-position:center top">
-          <div class="parada-gallery__caption">Acto oficial · Alfombra roja · Quito</div>
-        </div>
+        <!-- Foto 4 — derecha abajo -->
         <div class="parada-gallery__cell">
           <img src="assets/parada-gallery-2.png" alt="Dr. Ulloa Parada en evento institucional" loading="lazy">
-          <div class="parada-gallery__caption">Evento institucional · Ecuador</div>
+          <div class="parada-gallery__caption">Evento institucional &middot; Ecuador</div>
         </div>
       </div>
     </div>
@@ -3061,7 +3264,10 @@
   <!-- ═══════════════════════════════════════════════════
        CONTACTO
   ═══════════════════════════════════════════════════ -->
-  <section class="contacto" id="contacto">
+    <div class="sec-divider"><div class="sec-divider__diamond"></div></div>
+
+<section class="contacto" id="contacto">
+    <div class="sec-num-bg">08</div>
     <div class="contacto__left">
       <div class="sec-eyebrow"><div class="sec-eyebrow__rule"></div><span class="sec-eyebrow__txt">Consulta Privada</span></div>
       <h2 class="sec-title" style="margin-top:18px">Inicie su <em>Defensa</em><br>Hoy Mismo</h2>
@@ -3073,7 +3279,7 @@
         </div>
         <div class="c-info">
           <div class="c-info__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <div><p class="c-info__label">Correo Electrónico</p><a class="c-info__val" href="/cdn-cgi/l/email-protection#02727067716b66676c7667426a67706c636c776e6e6d632c616d6f"><span class="__cf_email__" data-cfemail="0b7b796e78626f6e657f6e4b636e79656a657e6767646a25686466">[email&#160;protected]</span></a></div>
+          <div><p class="c-info__label">Correo Electrónico</p><a class="c-info__val" href="/cdn-cgi/l/email-protection#76060413051f1213180213361e1304181718031a1a19175815191b"><span class="__cf_email__" data-cfemail="d3a3a1b6a0bab7b6bda7b693bbb6a1bdb2bda6bfbfbcb2fdb0bcbe">[email&#160;protected]</span></a></div>
         </div>
         <div class="c-info">
           <div class="c-info__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
@@ -3174,7 +3380,7 @@
         <p class="footer__col-title">Contacto Directo</p>
         <div class="footer__links">
           <a class="footer__link" href="https://wa.me/593997041927">+593 99 704 1927</a>
-          <a class="footer__link" href="/cdn-cgi/l/email-protection#f2828097819b96979c8697b29a97809c939c879e9e9d93dc919d9f"><span class="__cf_email__" data-cfemail="16666473657f7273786273567e7364787778637a7a79773875797b">[email&#160;protected]</span></a>
+          <a class="footer__link" href="/cdn-cgi/l/email-protection#d0a0a2b5a3b9b4b5bea4b590b8b5a2beb1bea5bcbcbfb1feb3bfbd"><span class="__cf_email__" data-cfemail="ed9d9f889e848988839988ad85889f838c83988181828cc38e8280">[email&#160;protected]</span></a>
           <span class="footer__link">Quito, Ecuador · Presencia nacional</span>
           <a class="footer__link" href="https://hernanulloa.com" target="_blank">hernanulloa.com</a>
         </div>
@@ -3445,6 +3651,116 @@
 
   
 
+
+  <script>
+    /* ══ V2: Scroll Reveal ══ */
+    (function() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      // Tag elements for reveal
+      var revealTargets = [
+        ['.areas__head', ''],
+        ['.area-card', 'stagger'],
+        ['.profile__photo', 'rv-left'],
+        ['.profile__text', 'rv-right'],
+        ['.featured-video__text', 'rv-left'],
+        ['.featured-video__frame', 'rv-right'],
+        ['.yt-card', 'stagger'],
+        ['.press-card', 'stagger'],
+        ['.rec-card', 'stagger'],
+        ['.equipo-card', 'stagger'],
+        ['.contacto__left', 'rv-left'],
+        ['.contacto__right', 'rv-right'],
+        ['.justicia-strip__text', '']
+      ];
+
+      revealTargets.forEach(function(t) {
+        var els = document.querySelectorAll(t[0]);
+        els.forEach(function(el, i) {
+          el.classList.add('rv');
+          if (t[1] === 'stagger') el.classList.add('rv-d' + Math.min(i % 4 + 1, 4));
+          else if (t[1]) el.classList.add(t[1]);
+        });
+      });
+
+      var all = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+
+      function inView(el) {
+        var r = el.getBoundingClientRect();
+        return r.top < (window.innerHeight - 30) && r.bottom > 0;
+      }
+
+      function sweep() {
+        for (var i = all.length - 1; i >= 0; i--) {
+          if (inView(all[i])) {
+            all[i].classList.add('rv-in');
+            all.splice(i, 1);
+          }
+        }
+        if (!all.length) {
+          window.removeEventListener('scroll', onScroll);
+          window.removeEventListener('resize', onScroll);
+        }
+      }
+
+      var ticking = false;
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function() { sweep(); ticking = false; });
+      }
+
+      // 1) IntersectionObserver when available & working
+      if ('IntersectionObserver' in window) {
+        try {
+          var io = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('rv-in');
+                var ix = all.indexOf(e.target);
+                if (ix > -1) all.splice(ix, 1);
+                io.unobserve(e.target);
+              }
+            });
+          }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+          all.forEach(function(el) { io.observe(el); });
+        } catch(e) {}
+      }
+
+      // 2) Scroll/rAF fallback — always active (covers webviews where IO never fires)
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      sweep(); // reveal what's already on screen at load
+
+      // 3) Safety net — anything still hidden after 1.5s gets revealed
+      setTimeout(function() {
+        document.querySelectorAll('.rv:not(.rv-in)').forEach(function(el) {
+          el.classList.add('rv-in');
+        });
+      }, 1500);
+    })();
+
+    /* ══ V2: 3D Tilt ══ */
+    (function() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if ('ontouchstart' in window && window.innerWidth < 900) return;
+
+      var cards = document.querySelectorAll('.area-card, .press-card, .rec-card');
+      cards.forEach(function(card) {
+        card.classList.add('tilt-3d');
+        card.addEventListener('mousemove', function(e) {
+          var r = card.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width  - 0.5;
+          var py = (e.clientY - r.top)  / r.height - 0.5;
+          card.style.transform =
+            'rotateY(' + (px * 9) + 'deg) rotateX(' + (-py * 9) + 'deg) translateZ(6px) scale(1.015)';
+        });
+        card.addEventListener('mouseleave', function() {
+          card.style.transform = 'rotateY(0) rotateX(0) translateZ(0) scale(1)';
+        });
+      });
+    })();
+  </script>
 
   <!-- ═══ Service Worker Registration ═══ -->
   <script>
