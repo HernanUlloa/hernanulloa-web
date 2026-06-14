@@ -2749,14 +2749,14 @@
 
     <!-- ── Right — Video corporativo (click con sonido) ── -->
     <div class="hero__video">
-      <div id="hero-vid-wrap" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.5);cursor:pointer">
+      <div id="hero-vid-wrap" role="button" tabindex="0" onclick="playHeroWithSound()" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.5);cursor:pointer">
         <img
           src="https://img.youtube.com/vi/30m1DA_bgmQ/maxresdefault.jpg"
           onerror="this.src='https://img.youtube.com/vi/30m1DA_bgmQ/hqdefault.jpg'"
           alt="Video Corporativo Ulloa &amp; Asociados"
-          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;">
-        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,.15) 100%)"></div>
-        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
+          style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.4) 0%,rgba(0,0,0,.15) 100%);pointer-events:none"></div>
+        <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;pointer-events:none">
           <div style="width:72px;height:72px;border-radius:50%;background:rgba(212,168,83,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 32px rgba(212,168,83,.5),0 2px 8px rgba(0,0,0,.4);transition:transform .18s" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
             <svg width="24" height="28" viewBox="0 0 24 28" fill="none"><path d="M2 2L22 14L2 26V2Z" fill="#000"/></svg>
           </div>
@@ -3645,25 +3645,28 @@
           <li>Cita por Zoom o presencial en Quito</li>
         </ul>
         <div style="display:flex;flex-direction:column;gap:10px;width:100%">
-          <a class="pay-btn" href="https://ppls.me/3Cv6f4FPJjPeJzc1eolvfQ" target="_blank" rel="noopener" onclick="showSuccess()" style="background:#009cde;width:100%;box-sizing:border-box;justify-content:center">
+          <a class="pay-btn" href="https://paypal.me/hernanulloaec" target="_blank" rel="noopener" onclick="goToPending('PayPal')" style="background:#009cde;width:100%;box-sizing:border-box;justify-content:center">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7.144 19.532l1.049-5.751c.11-.606.691-1.002 1.304-.948 2.155.192 6.877.1 8.818-4.002 2.554-5.397-.59-7.769-6.295-7.831H5.609a1.75 1.75 0 00-1.72 1.443L1.233 17.502a1.061 1.061 0 001.042 1.23h3.8a1.25 1.25 0 001.069-1.2z"/></svg>
             Pagar con PayPal
           </a>
-          <a class="pay-btn" href="#" target="_blank" rel="noopener" onclick="showSuccess()" id="payphone-btn" style="background:#00A859;width:100%;box-sizing:border-box;justify-content:center">
+          <a class="pay-btn" href="https://ppls.me/3Cv6f4FPJjPeJzc1eolvfQ" target="_blank" rel="noopener" onclick="goToPending('PayPhone')" id="payphone-btn" style="background:#00A859;width:100%;box-sizing:border-box;justify-content:center">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
             Pagar con PayPhone
           </a>
         </div>
-        <p class="pay-note">Pago 100% seguro · Seleccione su método preferido · Tras el pago agendamos su cita</p>
+        <p class="pay-note">Pago 100% seguro · Seleccione su método preferido · Agendamos su cita tras confirmar el pago</p>
       </div>
+
+      <!-- Step 2: pago pendiente — esperando comprobante -->
       <div class="pay-success" id="pay-step2">
-        <div class="pay-success__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <h2 class="pay-success__title">¡Pago Procesado!</h2>
-        <p class="pay-success__sub">Gracias por su confianza. El Ab. Ulloa ha sido notificado. Ahora agende su cita o escríbanos directamente.</p>
+        <div class="pay-success__icon" style="border-color:var(--gold)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h2 class="pay-success__title">Complete su Pago</h2>
+        <p class="pay-success__sub">Se abrió la ventana de <strong id="pay-method-name">pago</strong> en otra pestaña. Una vez que <strong>realice y confirme el pago</strong>, envíenos el comprobante por WhatsApp y agendaremos su cita de inmediato.</p>
         <div class="pay-success__actions">
-          <a class="pay-success__wa" href="https://wa.me/593997041927?text=Hola%2C%20acabo%20de%20realizar%20el%20pago%20de%20la%20consulta%20por%20PayPal.%20Quisiera%20agendar%20mi%20cita%20con%20el%20Ab.%20Ulloa." target="_blank" rel="noopener">Confirmar cita por WhatsApp</a>
-          <a class="pay-success__cal" href="https://calendar.google.com/calendar/r/eventedit?text=Consulta+Jurídica+Ulloa+%26+Asociados&details=Consulta+privada+pagada+($100)+con+el+Ab.+Hernán+Ulloa+Ordóñez.&location=Quito,+Ecuador+(Zoom+disponible)&dur=0100" target="_blank" rel="noopener">Agregar a Google Calendar</a>
+          <a class="pay-success__wa" href="https://wa.me/593997041927?text=Hola%2C%20acabo%20de%20realizar%20el%20pago%20de%20la%20consulta%20de%20%24100.%20Adjunto%20el%20comprobante%20para%20agendar%20mi%20cita%20con%20el%20Ab.%20Ulloa." target="_blank" rel="noopener">Enviar comprobante y agendar</a>
+          <button class="pay-success__cal" onclick="backToPayStep1()" style="background:none;border:1px solid var(--border);cursor:pointer">No completé el pago — volver</button>
         </div>
+        <p class="pay-note" style="margin-top:18px">Su cita se confirma únicamente tras verificar el pago. El comprobante puede ser una captura de la transacción de PayPal o PayPhone.</p>
       </div>
     </div>
   </div>
@@ -3705,13 +3708,19 @@
     }, { passive: true });
 
     /* ══ Payment Modal ══ */
-    function openPay() { document.getElementById('pay-overlay').classList.add('open'); document.body.style.overflow='hidden'; }
+    function openPay() { document.getElementById('pay-overlay').classList.add('open'); document.body.style.overflow='hidden'; backToPayStep1(); }
     function closePay() { document.getElementById('pay-overlay').classList.remove('open'); document.body.style.overflow=''; }
-    function showSuccess() {
+    function goToPending(method) {
+      var nameEl = document.getElementById('pay-method-name');
+      if (nameEl) nameEl.textContent = method;
       setTimeout(function() {
         document.getElementById('pay-step1').style.display='none';
         document.getElementById('pay-step2').classList.add('show');
-      }, 1200);
+      }, 400);
+    }
+    function backToPayStep1() {
+      document.getElementById('pay-step1').style.display='';
+      document.getElementById('pay-step2').classList.remove('show');
     }
 
     /* ══ Form submit → WhatsApp ══ */
@@ -3852,15 +3861,6 @@
       var ov=document.getElementById('pay-overlay');
       if(ov)ov.addEventListener('click',function(e){if(e.target===this)closePay();});
       setTimeout(function(){var b=document.querySelector('.ai-chat__badge');if(b&&!chatOpen)b.textContent='1';},8000);
-
-      /* Hero video — click + touch (mobile) */
-      var hvw = document.getElementById('hero-vid-wrap');
-      if (hvw) {
-        var fired = false;
-        function heroPlay(e){ if(fired) return; fired=true; e.preventDefault(); playHeroWithSound(); }
-        hvw.addEventListener('click', heroPlay);
-        hvw.addEventListener('touchend', heroPlay, { passive:false });
-      }
 
       buildEmails();
     });
