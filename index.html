@@ -1170,6 +1170,7 @@
       background: rgba(11,10,9,.15);
       display: flex; align-items: center; justify-content: center;
       transition: background .28s;
+      pointer-events: none;
     }
     .yt-card:hover .yt-card__overlay { background: rgba(11,10,9,.5); }
     .yt-card__play {
@@ -1853,7 +1854,10 @@
       z-index: 800;
       display: flex; flex-direction: column;
       align-items: flex-end; gap: 12px;
+      pointer-events: none; /* el área transparente NO intercepta clics */
     }
+    .ai-chat__trigger { pointer-events: auto; }
+    .ai-chat__panel.open { pointer-events: all; }
     .ai-chat__panel {
       width: 340px; height: 480px;
       background: var(--white);
@@ -2617,6 +2621,51 @@
   /* FORCE LIGHT MODE */
     html:not(.dark) body:not(.dark) .hero { background: #FFFFFF !important; }
     html body:not(.dark) { --white: #FFFFFF !important; }
+
+    /* ═══════════════════════════════════════
+       MÓVIL / TABLET — TOUCH & RESPONSIVE (max 768px)
+    ═══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* Sin scroll horizontal */
+      html, body { overflow-x: hidden; max-width: 100%; }
+
+      /* Todos los elementos interactivos: por encima de capas decorativas + área táctil amplia */
+      a, button, [onclick], .btn-primary, .nav-cta, .nav-mobile-cta,
+      .pay-btn, .pay-success__wa, .pay-success__cal,
+      .ai-chat__trigger, .ai-chat__send, .nav-hamburger,
+      .yt-card, #fv-frame, #hero-vid-wrap, .press-card, .recurso-card {
+        position: relative;
+        z-index: 5;
+        -webkit-tap-highlight-color: rgba(212,168,83,.25);
+        touch-action: manipulation;
+      }
+
+      /* Botones principales: mínimo 44px de alto táctil */
+      .btn-primary, .nav-cta, .nav-mobile-cta, .pay-btn,
+      .pay-success__wa, .pay-success__cal, .nav-hamburger,
+      .c-form__submit, .wa-cta {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Capas decorativas sobre videos NO interceptan toques */
+      #hero-vid-wrap > *:not(iframe),
+      #fv-frame > *:not(iframe),
+      .yt-card__thumb-wrap > *:not(iframe):not(.yt-card__iframe-wrap) {
+        pointer-events: none;
+      }
+
+      /* Iframes de YouTube siempre responsivos */
+      iframe {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+      .yt-card__iframe-wrap, .featured-video__frame {
+        width: 100%; max-width: 100%; aspect-ratio: 16/9;
+      }
+    }
   </style>
 </head>
 
@@ -3049,8 +3098,8 @@
               src="https://img.youtube.com/vi/iukdvVHG7Fg/maxresdefault.jpg"
               onerror="this.src='https://img.youtube.com/vi/iukdvVHG7Fg/hqdefault.jpg'"
               alt="Video Corporativo Ulloa & Asociados"
-              style="width:100%;height:100%;object-fit:cover;display:block;">
-            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.22)">
+              style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none">
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.22);pointer-events:none">
               <div style="width:72px;height:72px;border-radius:50%;background:rgba(212,168,83,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 28px rgba(0,0,0,.5);transition:transform .2s">
                 <svg width="24" height="28" viewBox="0 0 22 26" fill="none"><path d="M2 2L20 13L2 24V2Z" fill="#000"/></svg>
               </div>
