@@ -2710,14 +2710,15 @@
   <!-- Mobile Navigation Menu -->
   <nav class="nav-mobile-menu" id="mobile-menu">
     <button class="nav-mobile-close" onclick="toggleMobileMenu()" aria-label="Cerrar">✕</button>
-    <a href="#inicio" onclick="toggleMobileMenu()">Inicio</a>
-    <a href="#areas" onclick="toggleMobileMenu()">Especialidades</a>
-    <a href="#marca" onclick="toggleMobileMenu()">Quién es Hernán Ulloa</a>
-    <a href="#equipo" onclick="toggleMobileMenu()">Nuestro Equipo</a>
-    <a href="#entrevistas" onclick="toggleMobileMenu()">Entrevistas</a>
-    <a href="#prensa" onclick="toggleMobileMenu()">Prensa</a>
-    <a href="#recursos" onclick="toggleMobileMenu()">Ayuda</a>
-    <a href="#contacto" onclick="toggleMobileMenu()">Contacto</a>
+    <a href="#inicio"       onclick="closeMobileAndScroll(event, '#inicio')">Inicio</a>
+    <a href="#areas"        onclick="closeMobileAndScroll(event, '#areas')">Especialidades</a>
+    <a href="#marca"        onclick="closeMobileAndScroll(event, '#marca')">Quién es Hernán Ulloa</a>
+    <a href="#estudio"      onclick="closeMobileAndScroll(event, '#estudio')">Nuestro Equipo</a>
+    <a href="#entrevistas"  onclick="closeMobileAndScroll(event, '#entrevistas')">Entrevistas</a>
+    <a href="#prensa"       onclick="closeMobileAndScroll(event, '#prensa')">Prensa</a>
+    <a href="#recursos"     onclick="closeMobileAndScroll(event, '#recursos')">Recursos Jurídicos</a>
+    <a href="#ayuda-social" onclick="closeMobileAndScroll(event, '#ayuda-social')">Ayuda Social</a>
+    <a href="#contacto"     onclick="closeMobileAndScroll(event, '#contacto')">Contacto</a>
     <a href="#contacto" onclick="toggleMobileMenu();openPay()" class="nav-mobile-cta">Iniciar Defensa Legal</a>
   </nav>
 
@@ -3889,6 +3890,26 @@
       if (!menu) return;
       menu.classList.toggle('open');
       document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    }
+
+    /* ══ Close menu AND scroll to section smoothly (mobile-safe) ══ */
+    function closeMobileAndScroll(e, hash) {
+      e.preventDefault();
+      /* 1. Close the menu */
+      var menu = document.getElementById('mobile-menu');
+      if (menu) { menu.classList.remove('open'); document.body.style.overflow = ''; }
+      /* 2. Wait one frame so the menu animation completes, then scroll */
+      requestAnimationFrame(function() {
+        var target = document.querySelector(hash);
+        if (!target) return;
+        var navH = (document.getElementById('navbar') || {}).offsetHeight || 70;
+        var top = target.getBoundingClientRect().top + window.pageYOffset - navH;
+        try {
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        } catch(err) {
+          window.scrollTo(0, top); /* iOS fallback */
+        }
+      });
     }
 
     /* ══ Build email links (bypass Cloudflare obfuscation) ══ */
