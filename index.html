@@ -1966,11 +1966,71 @@
     ═══════════════════════════════════════ */
     .ai-chat {
       position: fixed;
-      bottom: 28px; right: 28px;
+      bottom: 28px; left: 28px;
       z-index: 800;
       display: flex; flex-direction: column;
-      align-items: flex-end; gap: 12px;
+      align-items: flex-start; gap: 12px;
       pointer-events: none; /* el área transparente NO intercepta clics */
+    }
+
+    /* ═══════════════════════════════════════
+       WHATSAPP FLOATING WIDGET (CRO)
+    ═══════════════════════════════════════ */
+    .wa-float {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 900;
+      display: flex; align-items: center; gap: 0;
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 0;
+      height: 62px;
+      box-shadow: 0 8px 28px rgba(37,211,102,.42), 0 2px 8px rgba(0,0,0,.18);
+      overflow: hidden;
+      transition: box-shadow .3s, transform .25s;
+      max-width: 62px;
+    }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(37,211,102,.55), 0 4px 12px rgba(0,0,0,.22); }
+    .wa-float__icon {
+      width: 62px; height: 62px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .wa-float__icon svg { width: 32px; height: 32px; position: relative; z-index: 2; }
+    .wa-float__pulse {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(37,211,102,.6);
+      animation: waPulse 2.4s infinite;
+    }
+    @keyframes waPulse {
+      0% { box-shadow: 0 0 0 0 rgba(37,211,102,.55); }
+      70% { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+    }
+    .wa-float__label {
+      white-space: nowrap;
+      font-family: var(--font-body);
+      font-size: 13px; line-height: 1.25;
+      font-weight: 500;
+      padding-right: 22px;
+      opacity: 0;
+      transition: opacity .3s .05s;
+    }
+    .wa-float__label strong { font-weight: 700; display: block; font-size: 14px; }
+    /* Expanded pill — auto on desktop, tap-toggle on mobile */
+    .wa-float.show-label,
+    .wa-float:hover {
+      max-width: 320px;
+    }
+    .wa-float.show-label .wa-float__label,
+    .wa-float:hover .wa-float__label { opacity: 1; }
+    @media (max-width: 768px) {
+      .wa-float { bottom: 20px; right: 18px; }
+      .ai-chat { bottom: 20px; left: 18px; }
     }
     .ai-chat__trigger { pointer-events: auto; }
     .ai-chat__panel.open { pointer-events: all; }
@@ -2825,7 +2885,7 @@
       <span></span><span></span><span></span>
     </button>
     
-    <a href="#contacto" class="nav-cta" id="nav-cta-desktop">Iniciar Defensa Legal</a>
+    <a href="#contacto" class="nav-cta" id="nav-cta-desktop">Evaluar mi caso</a>
 
   </nav>
 
@@ -2842,7 +2902,7 @@
     <a href="#ayuda-social" onclick="closeMobileAndScroll(event, '#ayuda-social')">Ayuda Social</a>
     <a href="#faq"          onclick="closeMobileAndScroll(event, '#faq')">Preguntas Frecuentes</a>
     <a href="#contacto"     onclick="closeMobileAndScroll(event, '#contacto')">Contacto</a>
-    <a href="#contacto" onclick="toggleMobileMenu();openPay()" class="nav-mobile-cta">Iniciar Defensa Legal</a>
+    <a href="#contacto" onclick="closeMobileAndScroll(event, '#contacto')" class="nav-mobile-cta">Evaluar mi caso</a>
   </nav>
 
 
@@ -2889,13 +2949,14 @@
       <div class="h-rule"></div>
 
       <p class="subtext">
-        Defendemos sus intereses con precisión, discreción y excelencia jurídica,
-        fusionando el criterio experto con innovación tecnológica.
+        Antes de cualquier compromiso, evaluamos su caso. Conozca su situación real,
+        sus opciones y la estrategia adecuada en una <strong>llamada de precalificación
+        de 5 minutos, sin costo</strong> — con la precisión y discreción que distinguen al Estudio.
       </p>
 
       <div class="actions">
         <a href="#contacto" class="btn-primary">
-          <span>Iniciar Defensa Legal</span>
+          <span>Evaluar mi caso</span>
           <span class="arr">
             <svg width="15" height="10" viewBox="0 0 15 10" fill="none">
               <path d="M1 5H14M9.5 1L14 5L9.5 9" stroke="currentColor" stroke-width="1.3"
@@ -2903,7 +2964,7 @@
             </svg>
           </span>
         </a>
-        <a href="#estudio" class="btn-ghost">Conocer el Estudio</a>
+        <a href="https://wa.me/593997041927?text=Hola%2C%20deseo%20una%20llamada%20de%20precalificaci%C3%B3n%20de%205%20minutos%20para%20evaluar%20mi%20caso%20con%20el%20Ab.%20Hern%C3%A1n%20Ulloa." target="_blank" rel="noopener" class="btn-ghost">Llamada de 5 min, sin costo</a>
       </div>
 
       <div class="pills">
@@ -3782,9 +3843,9 @@
 <section class="contacto" id="contacto">
     <div class="sec-num-bg">09</div>
     <div class="contacto__left">
-      <div class="sec-eyebrow"><div class="sec-eyebrow__rule"></div><span class="sec-eyebrow__txt">Consulta Privada</span></div>
-      <h2 class="sec-title" style="margin-top:18px">Inicie su <em>Defensa</em><br>Hoy Mismo</h2>
-      <p class="sec-sub" style="margin-bottom:0">Contáctenos con absoluta confidencialidad. Un especialista de Ulloa &amp; Asociados le responderá a la brevedad.</p>
+      <div class="sec-eyebrow"><div class="sec-eyebrow__rule"></div><span class="sec-eyebrow__txt">Evaluación de Caso</span></div>
+      <h2 class="sec-title" style="margin-top:18px">Evaluemos su <em>Caso</em><br>en 5 Minutos</h2>
+      <p class="sec-sub" style="margin-bottom:0">Cuéntenos brevemente su situación. Un especialista de Ulloa &amp; Asociados revisa su caso y le contacta en <strong>menos de 10 minutos</strong> para una llamada de precalificación <strong>sin costo</strong> y con absoluta confidencialidad.</p>
       <div class="c-info-list">
         <div class="c-info">
           <div class="c-info__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 012 1.18 2 2 0 014 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
@@ -3809,15 +3870,14 @@
       </a>
     </div>
     <div class="contacto__right">
-      <div class="sec-eyebrow" style="margin-bottom:28px"><div class="sec-eyebrow__rule"></div><span class="sec-eyebrow__txt">Formulario de Consulta</span></div>
+      <div class="sec-eyebrow" style="margin-bottom:28px"><div class="sec-eyebrow__rule"></div><span class="sec-eyebrow__txt">Precalificación de su Caso</span></div>
       <form class="c-form" onsubmit="submitForm(event)">
         <div class="c-form__row">
           <div class="c-field"><label for="cf-nombre">Nombre completo</label><input type="text" id="cf-nombre" name="nombre" placeholder="Su nombre" required></div>
-          <div class="c-field"><label for="cf-email">Correo electrónico</label><input type="email" id="cf-email" name="email" placeholder="su@correo.com" required></div>
+          <div class="c-field"><label for="cf-tel">Teléfono / WhatsApp</label><input type="tel" id="cf-tel" name="telefono" placeholder="+593 9X XXX XXXX" required></div>
         </div>
         <div class="c-form__row">
-          <div class="c-field"><label for="cf-tel">Teléfono / WhatsApp</label><input type="tel" id="cf-tel" name="telefono" placeholder="+593 9X XXX XXXX"></div>
-          <div class="c-field"><label for="cf-area">Área de interés</label>
+          <div class="c-field"><label for="cf-area">Tipo de caso</label>
             <select id="cf-area" name="area">
               <option value="">Seleccione un área</option>
               <option>Derecho Penal</option>
@@ -3832,12 +3892,21 @@
               <option>Otra consulta</option>
             </select>
           </div>
+          <div class="c-field"><label for="cf-urgencia">¿Qué tan urgente es?</label>
+            <select id="cf-urgencia" name="urgencia" required>
+              <option value="">Seleccione</option>
+              <option>Urgente — tengo una audiencia o plazo próximo</option>
+              <option>Importante — quiero resolverlo este mes</option>
+              <option>Estoy evaluando opciones / asesoría preventiva</option>
+            </select>
+          </div>
         </div>
-        <div class="c-field"><label for="cf-msg">Descripción del caso</label><textarea id="cf-msg" name="mensaje" placeholder="Describa brevemente su situación jurídica. Todo lo que comparta es estrictamente confidencial." required></textarea></div>
+        <div class="c-field"><label for="cf-msg">Describa brevemente su caso</label><textarea id="cf-msg" name="mensaje" placeholder="En una o dos líneas, cuéntenos qué necesita. Todo lo que comparta es estrictamente confidencial." required></textarea></div>
         <button type="submit" class="c-submit" id="c-submit-btn">
-          <span>Enviar Consulta</span>
+          <span>Solicitar llamada de precalificación</span>
           <svg width="14" height="10" viewBox="0 0 15 10" fill="none"><path d="M1 5H14M9.5 1L14 5L9.5 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
+        <p style="font-size:12px;color:var(--text-light);text-align:center;margin-top:14px;line-height:1.5">Sin costo · Respuesta en menos de 10 min · 100% confidencial</p>
       </form>
     </div>
   </section>
@@ -3951,6 +4020,15 @@
   </div>
 
 
+  <!-- ═══ WHATSAPP FLOATING WIDGET ═══ -->
+  <a class="wa-float" id="wa-float" href="https://wa.me/593997041927?text=Hola%2C%20vi%20su%20sitio%20web%20y%20necesito%20evaluar%20un%20caso%20legal%20con%20el%20equipo%20del%20Ab.%20Hern%C3%A1n%20Ulloa.%20%C2%BFPodemos%20conversar%3F" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+    <span class="wa-float__icon">
+      <span class="wa-float__pulse"></span>
+      <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L.057 23.882a.5.5 0 00.61.61l6.008-1.478A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.886a9.88 9.88 0 01-5.031-1.378l-.361-.214-3.737.979.999-3.642-.235-.374A9.886 9.886 0 0112 2.114 9.886 9.886 0 0121.886 12 9.886 9.886 0 0112 21.886z"/></svg>
+    </span>
+    <span class="wa-float__label">¿Urgencia legal?<strong>Habla con un asesor ahora</strong></span>
+  </a>
+
   <!-- ═══ AI CHAT WIDGET ═══ -->
   <div class="ai-chat" id="ai-chat">
     <div class="ai-chat__panel" id="ai-panel">
@@ -4002,15 +4080,15 @@
       document.getElementById('pay-step2').classList.remove('show');
     }
 
-    /* ══ Form submit → WhatsApp ══ */
+    /* ══ Form submit → WhatsApp (precalificación) ══ */
     function submitForm(e) {
       e.preventDefault();
       var n=document.getElementById('cf-nombre').value.trim();
-      var em=document.getElementById('cf-email').value.trim();
       var t=document.getElementById('cf-tel').value.trim();
       var a=document.getElementById('cf-area').value;
+      var u=document.getElementById('cf-urgencia').value;
       var m=document.getElementById('cf-msg').value.trim();
-      var txt='Consulta desde hernanulloa.com\nNombre: '+n+'\nEmail: '+em+(t?'\nTel: '+t:'')+(a?'\nÁrea: '+a:'')+'\nMensaje: '+m;
+      var txt='Solicitud de precalificación — hernanulloa.com\n\nNombre: '+n+'\nTeléfono: '+t+(a?'\nTipo de caso: '+a:'')+(u?'\nUrgencia: '+u:'')+'\n\nCaso: '+m+'\n\nQuedo a la espera de la llamada de precalificación de 5 minutos.';
       window.open('https://wa.me/593997041927?text='+encodeURIComponent(txt),'_blank');
     }
 
@@ -4151,14 +4229,17 @@
       });
     }
 
-    /* ══ DOMContentLoaded — CTA buttons → payment modal ══ */
+    /* ══ DOMContentLoaded — CTA buttons → formulario de evaluación ══ */
     document.addEventListener('DOMContentLoaded',function(){
-      document.querySelectorAll('.btn-primary,.nav-cta').forEach(function(btn){
-        var href=btn.getAttribute('href')||'';
-        if(!href.includes('wa.me')){btn.addEventListener('click',function(e){e.preventDefault();openPay();});}
-      });
       var ov=document.getElementById('pay-overlay');
       if(ov)ov.addEventListener('click',function(e){if(e.target===this)closePay();});
+
+      /* WhatsApp widget — revela el microcopy al cargar (visible en móvil) */
+      var waf=document.getElementById('wa-float');
+      if(waf){
+        setTimeout(function(){waf.classList.add('show-label');},1400);
+        setTimeout(function(){waf.classList.remove('show-label');},6400);
+      }
       setTimeout(function(){var b=document.querySelector('.ai-chat__badge');if(b&&!chatOpen)b.textContent='1';},8000);
 
       buildEmails();
