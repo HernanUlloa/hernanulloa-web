@@ -4089,6 +4089,7 @@
       var u=document.getElementById('cf-urgencia').value;
       var m=document.getElementById('cf-msg').value.trim();
       var txt='Solicitud de precalificación — hernanulloa.com\n\nNombre: '+n+'\nTeléfono: '+t+(a?'\nTipo de caso: '+a:'')+(u?'\nUrgencia: '+u:'')+'\n\nCaso: '+m+'\n\nQuedo a la espera de la llamada de precalificación de 5 minutos.';
+      if (window.reportarWhatsApp) window.reportarWhatsApp('formulario');
       window.open('https://wa.me/593997041927?text='+encodeURIComponent(txt),'_blank');
     }
 
@@ -4449,6 +4450,30 @@
     window.addEventListener('appinstalled', function() {
       document.getElementById('pwa-install').style.display = 'none';
     });
+  </script>
+
+  <!-- ═══ Conversión Google Ads — Clic WhatsApp ═══ -->
+  <script>
+  (function () {
+    var ETIQUETA = 'AW-656686704/Jb2tCO_Mm-AcEPD8kLkC';
+
+    window.reportarWhatsApp = function (origen) {
+      if (typeof gtag !== 'function') return;
+      gtag('event', 'conversion', {
+        'send_to': ETIQUETA,
+        'value': 250.0,
+        'currency': 'USD'
+      });
+      gtag('event', 'contacto_whatsapp', { 'origen': origen || 'desconocido' });
+    };
+
+    document.addEventListener('click', function (e) {
+      var enlace = e.target.closest && e.target.closest('a[href*="wa.me"]');
+      if (enlace) {
+        window.reportarWhatsApp(enlace.textContent.trim().slice(0, 40) || 'boton');
+      }
+    }, true);
+  })();
   </script>
 </body>
 </html>
