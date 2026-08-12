@@ -4481,16 +4481,12 @@
   </script>
 
   <!-- ═══ Conversión Google Ads — Clic Teléfono ═══ -->
-  <!-- PENDIENTE: reemplazar la etiqueta placeholder de abajo por la real
-       una vez creada la acción "Clic Teléfono" en Google Ads (misma
-       categoría "Contacto" usada para Clic WhatsApp). -->
   <script>
   (function () {
-    var ETIQUETA_TEL = 'AW-656686704/PENDIENTE_REEMPLAZAR';
+    var ETIQUETA_TEL = 'AW-656686704/OnuTCP_yoOAcEPD8kLkC';
 
     window.reportarTelefono = function (origen) {
       if (typeof gtag !== 'function') return;
-      if (ETIQUETA_TEL.indexOf('PENDIENTE') !== -1) return; // no reporta hasta tener la etiqueta real
       gtag('event', 'conversion', {
         'send_to': ETIQUETA_TEL,
         'value': 250.0,
